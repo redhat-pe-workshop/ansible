@@ -162,6 +162,49 @@ ocp4_workload_platform_engineering_workshop_openshift_gitops_resource_customizat
 ocp4_workload_platform_engineering_workshop_openshift_gitops_ignore_differences: {}
 
 # ------------------------------------------------
+# GitLab
+# ------------------------------------------------
+
+ocp4_workload_platform_engineering_workshop_gitlab_namespace: gitlab
+
+ocp4_workload_platform_engineering_workshop_gitlab_gitops_repo: https://github.com/redhat-pe-workshop/agnosticg.git
+ocp4_workload_platform_engineering_workshop_gitlab_gitops_repo_path: charts/gitlab
+ocp4_workload_platform_engineering_workshop_gitlab_gitops_repo_tag: HEAD
+ocp4_workload_platform_engineering_workshop_gitlab_gitops_name: gitlab
+ocp4_workload_platform_engineering_workshop_gitlab_gitops_namespace: openshift-gitops
+
+ocp4_workload_platform_engineering_workshop_gitlab_config_email_address: "gitlab@example.com"
+ocp4_workload_platform_engineering_workshop_gitlab_config_email_display_name: "GitLab Admin"
+ocp4_workload_platform_engineering_workshop_gitlab_config_email_reply_to: "noreply@example.com"
+ocp4_workload_platform_engineering_workshop_gitlab_config_smtp_enabled: "false"
+ocp4_workload_platform_engineering_workshop_gitlab_config_smtp_domain: "example.com"
+ocp4_workload_platform_engineering_workshop_gitlab_config_smtp_host:
+  smtp.gitlab-{{ ocp4_workload_platform_engineering_workshop_gitlab_namespace }}.{{ r_openshift_subdomain }}
+ocp4_workload_platform_engineering_workshop_gitlab_config_smtp_port: "587"
+ocp4_workload_platform_engineering_workshop_gitlab_config_smtp_user: "gitlab"
+ocp4_workload_platform_engineering_workshop_gitlab_config_smtp_password: "gitlab"
+ocp4_workload_platform_engineering_workshop_gitlab_config_ssh_host:
+  ssh.gitlab-{{ ocp4_workload_platform_engineering_workshop_gitlab_namespace }}.{{ r_openshift_subdomain }}
+ocp4_workload_platform_engineering_workshop_gitlab_config_ssh_port: "22"
+ocp4_workload_platform_engineering_workshop_gitlab_config_root_password: "{{ common_password }}"
+ocp4_workload_platform_engineering_workshop_gitlab_config_host:
+  "gitlab-{{ ocp4_workload_platform_engineering_workshop_gitlab_namespace }}.{{ r_openshift_subdomain }}"
+ocp4_workload_platform_engineering_workshop_gitlab_config_https: "true"
+ocp4_workload_platform_engineering_workshop_gitlab_config_root_email: "root@example.com"
+ocp4_workload_platform_engineering_workshop_gitlab_config_keybase_db: "0123456789"
+ocp4_workload_platform_engineering_workshop_gitlab_config_keybase_otp: "0123456789"
+ocp4_workload_platform_engineering_workshop_gitlab_config_keybase_secret: "0123456789"
+
+ocp4_workload_platform_engineering_workshop_gitlab_db_user_name: gitlab
+ocp4_workload_platform_engineering_workshop_gitlab_db_password: passw0rd
+ocp4_workload_platform_engineering_workshop_gitlab_db_name: gitlab_production
+
+ocp4_workload_platform_engineering_workshop_gitlab_users_count: "{{ num_users | default(1) }}"
+ocp4_workload_platform_engineering_workshop_gitlab_users_password: "{{ common_password }}"
+
+ocp4_workload_platform_engineering_workshop_gitlab_import_repos: []
+
+# ------------------------------------------------
 # Red Hat Developer Hub
 # ------------------------------------------------
 

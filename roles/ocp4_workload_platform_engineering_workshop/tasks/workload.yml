@@ -3,5 +3,8 @@
 - name: Install OpenShift Gitops
   ansible.builtin.include_tasks: openshift_gitops.yml
 
+- name: Install Gitlab
+  ansible.builtin.include_tasks: gitlab.yml
+
 - name: Install Red Hat Developer Hub
   ansible.builtin.include_tasks: redhat_developer_hub.yml

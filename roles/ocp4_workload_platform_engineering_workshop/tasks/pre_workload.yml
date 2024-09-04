@@ -24,7 +24,7 @@
 
 - name: Common password
   ansible.builtin.set_fact:
-    common_password: "{{ lookup('ansible.builtin.password', '/tmp/passwordfile', chars=['ascii_letters']) }}"
+    common_password: "{{ lookup('ansible.builtin.password', '/tmp/passwordfile', chars=['ascii_letters'], length=8) }}"
 
 # Leave these as the last tasks in the playbook
 # ---------------------------------------------
