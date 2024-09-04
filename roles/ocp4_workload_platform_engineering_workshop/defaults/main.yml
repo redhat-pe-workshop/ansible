@@ -160,3 +160,17 @@ ocp4_workload_platform_engineering_workshop_openshift_gitops_resource_customizat
   #     return hs
 
 ocp4_workload_platform_engineering_workshop_openshift_gitops_ignore_differences: {}
+
+# ------------------------------------------------
+# Red Hat Developer Hub
+# ------------------------------------------------
+
+ocp4_workload_platform_engineering_workshop_rhdh_argo_application_name: backstage
+ocp4_workload_platform_engineering_workshop_rhdh_argo_application_namespace: openshift-gitops
+ocp4_workload_platform_engineering_workshop_rhdh_namespace: backstage
+
+ocp4_workload_platform_engineering_workshop_rhdh_helm_repo: https://charts.openshift.io
+ocp4_workload_platform_engineering_workshop_rhdh_helm_chart: redhat-developer-hub
+ocp4_workload_platform_engineering_workshop_rhdh_helm_revision: 1.2.3
+
+ocp4_workload_platform_engineering_workshop_rhdh_psql_password: password

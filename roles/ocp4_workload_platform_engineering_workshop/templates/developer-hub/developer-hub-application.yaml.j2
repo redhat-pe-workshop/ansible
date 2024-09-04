@@ -1,0 +1,37 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ ocp4_workload_platform_engineering_workshop_rhdh_argo_application_name }}
+  namespace: {{ ocp4_workload_platform_engineering_workshop_rhdh_argo_application_namespace }}
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io/foreground
+spec:
+  destination:
+    name: ""
+    namespace: {{ ocp4_workload_platform_engineering_workshop_rhdh_namespace }}
+    server: 'https://kubernetes.default.svc'
+  project: default
+  source:
+    repoURL: {{ ocp4_workload_platform_engineering_workshop_rhdh_helm_repo }}
+    chart: {{ ocp4_workload_platform_engineering_workshop_rhdh_helm_chart }}
+    targetRevision: {{ ocp4_workload_platform_engineering_workshop_rhdh_helm_revision }}
+    helm:
+      values: |
+        global:
+          clusterRouterBase: {{ r_openshift_subdomain }}
+          postgresql.auth.password: {{ ocp4_workload_platform_engineering_workshop_rhdh_psql_password }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    retry:
+      backoff:
+        duration: 10s
+        factor: 2
+        maxDuration: 10m
+      limit: 15
+    syncOptions:
+      - CreateNamespace=true
+      - RespectIgnoreDifferences=true
+      - ApplyOutOfSyncOnly=true
