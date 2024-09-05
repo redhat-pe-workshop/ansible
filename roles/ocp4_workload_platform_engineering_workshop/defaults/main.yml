@@ -217,3 +217,17 @@ ocp4_workload_platform_engineering_workshop_rhdh_helm_chart: redhat-developer-hu
 ocp4_workload_platform_engineering_workshop_rhdh_helm_revision: 1.2.3
 
 ocp4_workload_platform_engineering_workshop_rhdh_psql_password: password
+
+# ------------------------------------------------
+# Red Hat Build Of Keycloak
+# ------------------------------------------------
+
+ocp4_workload_platform_engineering_workshop_rhbk_application_namespace: openshift-gitops
+ocp4_workload_platform_engineering_workshop_rhbk_application_name: keycloak
+ocp4_workload_platform_engineering_workshop_rhbk_namespace: keycloak
+ocp4_workload_platform_engineering_workshop_rhbk_gitops_repo: https://github.com/btison/pe-workshop-helm.git
+ocp4_workload_platform_engineering_workshop_rhbk_gitops_repo_tag: main
+ocp4_workload_platform_engineering_workshop_rhbk_gitops_repo_path: keycloak
+
+ocp4_workload_platform_engineering_workshop_rhbk_external_access: false
+ocp4_workload_platform_engineering_workshop_rhbk_host: sso
