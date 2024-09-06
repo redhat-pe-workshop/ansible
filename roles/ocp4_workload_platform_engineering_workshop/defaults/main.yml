@@ -205,20 +205,6 @@ ocp4_workload_platform_engineering_workshop_gitlab_users_password: "{{ common_pa
 ocp4_workload_platform_engineering_workshop_gitlab_import_repos: []
 
 # ------------------------------------------------
-# Red Hat Developer Hub
-# ------------------------------------------------
-
-ocp4_workload_platform_engineering_workshop_rhdh_argo_application_name: backstage
-ocp4_workload_platform_engineering_workshop_rhdh_argo_application_namespace: openshift-gitops
-ocp4_workload_platform_engineering_workshop_rhdh_namespace: backstage
-
-ocp4_workload_platform_engineering_workshop_rhdh_helm_repo: https://charts.openshift.io
-ocp4_workload_platform_engineering_workshop_rhdh_helm_chart: redhat-developer-hub
-ocp4_workload_platform_engineering_workshop_rhdh_helm_revision: 1.2.3
-
-ocp4_workload_platform_engineering_workshop_rhdh_psql_password: password
-
-# ------------------------------------------------
 # Red Hat Build Of Keycloak
 # ------------------------------------------------
 
@@ -231,3 +217,17 @@ ocp4_workload_platform_engineering_workshop_rhbk_gitops_repo_path: keycloak
 
 ocp4_workload_platform_engineering_workshop_rhbk_external_access: false
 ocp4_workload_platform_engineering_workshop_rhbk_host: sso
+
+# ------------------------------------------------
+# Red Hat Developer Hub
+# ------------------------------------------------
+
+ocp4_workload_platform_engineering_workshop_rhdh_argo_application_name: backstage
+ocp4_workload_platform_engineering_workshop_rhdh_argo_application_namespace: openshift-gitops
+ocp4_workload_platform_engineering_workshop_rhdh_namespace: backstage
+
+ocp4_workload_platform_engineering_workshop_rhdh_helm_repo: https://github.com/btison/pe-workshop-helm.git
+ocp4_workload_platform_engineering_workshop_rhdh_helm_chart: redhat-developer-hub
+ocp4_workload_platform_engineering_workshop_rhdh_helm_revision: main
+
+ocp4_workload_platform_engineering_workshop_rhdh_psql_password: password

@@ -14,13 +14,29 @@ spec:
   project: default
   source:
     repoURL: {{ ocp4_workload_platform_engineering_workshop_rhdh_helm_repo }}
-    chart: {{ ocp4_workload_platform_engineering_workshop_rhdh_helm_chart }}
+    path: {{ ocp4_workload_platform_engineering_workshop_rhdh_helm_chart }}
     targetRevision: {{ ocp4_workload_platform_engineering_workshop_rhdh_helm_revision }}
     helm:
       values: |
-        global:
-          clusterRouterBase: {{ r_openshift_subdomain }}
-          postgresql.auth.password: {{ ocp4_workload_platform_engineering_workshop_rhdh_psql_password }}
+        redhat-developer-hub-prereqs:
+          nameOverride: backstage
+          backstage:
+            postgresql:
+              password: {{ ocp4_workload_platform_engineering_workshop_rhdh_psql_password }}     
+        redhat-developer-hub:
+          
+          global:
+            clusterRouterBase: {{ r_openshift_subdomain }}
+          upstream:
+            postgresql:
+              auth:
+                username: postgres
+                database: backstage
+                existingSecret: backstage-postgresql
+                secretKeys:
+                  userPasswordKey: postgres-password
+          route:
+            host: backstage-{{ ocp4_workload_platform_engineering_workshop_rhdh_namespace }}.{{ r_openshift_subdomain }}
   syncPolicy:
     automated:
       prune: true
