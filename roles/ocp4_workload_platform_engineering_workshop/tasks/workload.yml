@@ -11,3 +11,10 @@
 
 - name: Install Red Hat Developer Hub
   ansible.builtin.include_tasks: redhat_developer_hub.yml
+
+- name: Print Common Password
+  agnosticd_user_info:
+    msg: "{{ item }}"
+  loop:
+    - ""
+    - "password: {{ common_password }}"
