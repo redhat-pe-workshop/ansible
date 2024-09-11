@@ -218,6 +218,7 @@ ocp4_workload_platform_engineering_workshop_rhbk_gitops_repo_path: keycloak
 ocp4_workload_platform_engineering_workshop_rhbk_external_access: false
 ocp4_workload_platform_engineering_workshop_rhbk_host: sso
 
+ocp4_workload_platform_engineering_workshop_rhbk_realm_backstage_name: backstage
 # ------------------------------------------------
 # Red Hat Developer Hub
 # ------------------------------------------------
