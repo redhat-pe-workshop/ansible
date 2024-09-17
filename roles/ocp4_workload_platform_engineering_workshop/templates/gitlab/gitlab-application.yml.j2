@@ -59,6 +59,8 @@ spec:
           value: "{{ ocp4_workload_platform_engineering_workshop_gitlab_users_count }}"
         - name: gitlab.users.password
           value: {{ ocp4_workload_platform_engineering_workshop_gitlab_users_password }}
+        - name: cluster.subdomain
+          value: {{ r_openshift_subdomain }}
 {% for group in ocp4_workload_platform_engineering_workshop_gitlab_import_repos -%}
           {% set grouploop = loop %}
         - name: gitlab.groups[{{ grouploop.index - 1 }}].name
@@ -68,6 +70,19 @@ spec:
           value: {{ repo.name }}
         - name: gitlab.groups[{{ grouploop.index - 1 }}].repo[{{ loop.index - 1 }}].url
           value: {{ repo.url }}
+{% endfor %}
+{% endfor %}
+{% for template in ocp4_workload_platform_engineering_workshop_gitlab_templates -%}
+{% set templateloop = loop %}
+        - name: gitlab.templates[{{ templateloop.index - 1 }}].group
+          value: {{ template.group }}
+        - name: gitlab.templates[{{ templateloop.index - 1 }}].project
+          value: {{ template.project }}
+        - name: gitlab.templates[{{ templateloop.index - 1 }}].branch
+          value: {{ template.branch }}
+{% for templatefile in template.templates %}
+        - name: gitlab.templates[{{ templateloop.index - 1 }}].templates[{{ loop.index - 1 }}]
+          value: {{ templatefile }}        
 {% endfor %}
 {% endfor %}
     path: {{ ocp4_workload_platform_engineering_workshop_gitlab_gitops_repo_path }}
