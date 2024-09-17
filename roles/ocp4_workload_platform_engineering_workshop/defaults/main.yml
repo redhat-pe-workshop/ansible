@@ -207,6 +207,8 @@ ocp4_workload_platform_engineering_workshop_gitlab_import_repos:
     repo:
       - name: template-quarkus-simple
         url: https://github.com/btison/rhdh-template-quarkus-simple.git
+      - name: catalog
+        url: https://github.com/btison/rhdh-catalog.git
   - name: development
     repo: []
 
@@ -216,6 +218,11 @@ ocp4_workload_platform_engineering_workshop_gitlab_templates:
     branch: main
     templates:
       - template.yaml
+  - group: rhdh
+    project: catalog
+    branch: main
+    templates:
+      - org.yaml
 
 # ------------------------------------------------
 # Red Hat Build Of Keycloak
@@ -251,3 +258,11 @@ ocp4_workload_platform_engineering_workshop_rhdh_helm_repo_path: redhat-develope
 ocp4_workload_platform_engineering_workshop_rhdh_helm_repo_tag: main
 
 ocp4_workload_platform_engineering_workshop_rhdh_psql_password: password
+
+ocp4_workload_platform_engineering_workshop_rhdh_locations:
+  - group: rhdh
+    project: catalog
+    branch: main
+    file: org.yaml
+    rules:
+      allow: Group, User
