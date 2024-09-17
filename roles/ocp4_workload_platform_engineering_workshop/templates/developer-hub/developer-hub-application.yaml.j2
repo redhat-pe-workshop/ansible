@@ -26,6 +26,14 @@ spec:
         redhat-developer-hub:          
           global:
             clusterRouterBase: {{ r_openshift_subdomain }}
+
+            dynamic:
+              includes:
+                - dynamic-plugins.default.yaml
+              plugins:
+                - package: ./dynamic-plugins/dist/backstage-plugin-scaffolder-backend-module-gitlab-dynamic
+                  disabled: false
+
           upstream:
             postgresql:
               auth:
@@ -43,6 +51,12 @@ spec:
                   providers:
                     oauth2Proxy: {}
                 signInPage: oauth2Proxy
+                integrations:
+                  gitlab:
+                    - apiBaseUrl: https://gitlab-{{ ocp4_workload_platform_engineering_workshop_gitlab_namespace }}.{{ r_openshift_subdomain }}/api/v4
+                      baseUrl: https://gitlab-{{ ocp4_workload_platform_engineering_workshop_gitlab_namespace }}.{{ r_openshift_subdomain }}
+                      host: gitlab-{{ ocp4_workload_platform_engineering_workshop_gitlab_namespace }}.{{ r_openshift_subdomain }}
+                      token: {{ _ocp4_workload_platform_engineering_workshop_gitlab_root_token }}             
 
               extraContainers:
                 - name: oauth2-proxy
