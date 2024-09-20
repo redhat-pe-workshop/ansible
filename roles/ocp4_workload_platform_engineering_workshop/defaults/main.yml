@@ -112,7 +112,7 @@ ocp4_workload_platform_engineering_workshop_openshift_gitops_resource_customizat
       health_status.message = "An install plan for a subscription is pending installation"
       return health_status
 
-  monitoring.coreos.com/Prometheus:
+  quay.redhat.com/QuayRegistry:
     health.lua: |
       local hs={ status = "Progressing", message = "Waiting for initialization" }
       found_status = false
@@ -123,7 +123,7 @@ ocp4_workload_platform_engineering_workshop_openshift_gitops_resource_customizat
           for i, condition in ipairs(obj.status.conditions) do
 
             if condition.type == "Available" and condition.status ~= "True" then
-              if condition.reason == "SomePodsNotReady" then
+              if condition.reason == "ComponentNotReady" then
                 hs.status = "Progressing"
               else
                 hs.status = "Degraded"
@@ -139,7 +139,7 @@ ocp4_workload_platform_engineering_workshop_openshift_gitops_resource_customizat
       end
 
       if not found_status then
-          hs = { status = "Healthy", message = "All instances are available" }
+        hs = { status = "Progressing", message = "Instance is waiting for initialization" }
       end
 
       return hs
@@ -231,6 +231,21 @@ ocp4_workload_platform_engineering_workshop_rhbk_external_access: false
 ocp4_workload_platform_engineering_workshop_rhbk_host: sso
 
 ocp4_workload_platform_engineering_workshop_rhbk_realm_backstage_name: backstage
+# ------------------------------------------------
+# Quay
+# ------------------------------------------------
+
+ocp4_workload_platform_engineering_workshop_quay_application_namespace: openshift-gitops
+ocp4_workload_platform_engineering_workshop_quay_application_name: quay
+ocp4_workload_platform_engineering_workshop_quay_namespace: quay-registry
+ocp4_workload_platform_engineering_workshop_quay_gitops_repo: https://github.com/btison/pe-workshop-helm.git
+ocp4_workload_platform_engineering_workshop_quay_gitops_repo_tag: quay
+ocp4_workload_platform_engineering_workshop_quay_gitops_repo_path: quay
+
+ocp4_workload_platform_engineering_workshop_quay_registry_host: "quay.{{ r_openshift_subdomain }}"
+ocp4_workload_platform_engineering_workshop_quay_admin_user: quayadmin
+ocp4_workload_platform_engineering_workshop_quay_admin_user_password: "{{ common_password }}"
+
 # ------------------------------------------------
 # Red Hat Developer Hub
 # ------------------------------------------------
