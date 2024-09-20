@@ -1,0 +1,6 @@
+---
+
+- name: Create NooBaa application
+  kubernetes.core.k8s:
+    state: present
+    definition: "{{ lookup('template', 'noobaa/noobaa-application.yaml.j2') | from_yaml }}"
