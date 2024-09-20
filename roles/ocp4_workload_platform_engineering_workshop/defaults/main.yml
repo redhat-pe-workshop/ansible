@@ -179,9 +179,9 @@ ocp4_workload_platform_engineering_workshop_noobaa_gitops_repo_path: noobaa
 
 ocp4_workload_platform_engineering_workshop_gitlab_namespace: gitlab
 
-ocp4_workload_platform_engineering_workshop_gitlab_gitops_repo: https://github.com/redhat-pe-workshop/agnosticg.git
+ocp4_workload_platform_engineering_workshop_gitlab_gitops_repo: https://github.com/btison/agnosticg.git
 ocp4_workload_platform_engineering_workshop_gitlab_gitops_repo_path: charts/gitlab
-ocp4_workload_platform_engineering_workshop_gitlab_gitops_repo_tag: HEAD
+ocp4_workload_platform_engineering_workshop_gitlab_gitops_repo_tag: software-templates
 ocp4_workload_platform_engineering_workshop_gitlab_gitops_name: gitlab
 ocp4_workload_platform_engineering_workshop_gitlab_gitops_namespace: openshift-gitops
 
@@ -214,7 +214,27 @@ ocp4_workload_platform_engineering_workshop_gitlab_db_name: gitlab_production
 ocp4_workload_platform_engineering_workshop_gitlab_users_count: "{{ num_users | default(1) }}"
 ocp4_workload_platform_engineering_workshop_gitlab_users_password: "{{ common_password }}"
 
-ocp4_workload_platform_engineering_workshop_gitlab_import_repos: []
+ocp4_workload_platform_engineering_workshop_gitlab_import_repos:
+  - name: rhdh
+    repo:
+      - name: template-quarkus-simple
+        url: https://github.com/btison/rhdh-template-quarkus-simple.git
+      - name: catalog
+        url: https://github.com/btison/rhdh-catalog.git
+  - name: development
+    repo: []
+
+ocp4_workload_platform_engineering_workshop_gitlab_templates:
+  - group: rhdh
+    project: template-quarkus-simple
+    branch: main
+    templates:
+      - template.yaml
+  - group: rhdh
+    project: catalog
+    branch: main
+    templates:
+      - org.yaml
 
 # ------------------------------------------------
 # Red Hat Build Of Keycloak
@@ -265,3 +285,11 @@ ocp4_workload_platform_engineering_workshop_rhdh_helm_repo_path: redhat-develope
 ocp4_workload_platform_engineering_workshop_rhdh_helm_repo_tag: main
 
 ocp4_workload_platform_engineering_workshop_rhdh_psql_password: password
+
+ocp4_workload_platform_engineering_workshop_rhdh_locations:
+  - group: rhdh
+    project: catalog
+    branch: main
+    file: org.yaml
+    rules:
+      allow: Group, User
