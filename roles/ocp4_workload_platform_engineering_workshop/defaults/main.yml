@@ -275,6 +275,19 @@ ocp4_workload_platform_engineering_workshop_quay_admin_user: quayadmin
 ocp4_workload_platform_engineering_workshop_quay_admin_user_password: "{{ common_password }}"
 
 # ------------------------------------------------
+# RHDH GitOps
+# ------------------------------------------------
+
+ocp4_workload_platform_engineering_workshop_rhdh_gitops_application_namespace: openshift-gitops
+ocp4_workload_platform_engineering_workshop_rhdh_gitops_application_name: rhdh-gitops
+ocp4_workload_platform_engineering_workshop_rhdh_gitops_namespace: rhdh-gitops
+ocp4_workload_platform_engineering_workshop_rhdh_gitops_gitops_repo: https://github.com/btison/pe-workshop-helm.git
+ocp4_workload_platform_engineering_workshop_rhdh_gitops_gitops_repo_tag: rhdh-gitops
+ocp4_workload_platform_engineering_workshop_rhdh_gitops_gitops_repo_path: gitops
+
+ocp4_workload_platform_engineering_workshop_rhdh_gitops_name: rhdh-gitops
+
+# ------------------------------------------------
 # Red Hat Developer Hub
 # ------------------------------------------------
 

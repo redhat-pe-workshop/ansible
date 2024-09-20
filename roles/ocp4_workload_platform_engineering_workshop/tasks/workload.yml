@@ -15,6 +15,9 @@
 - name: Install Quay
   ansible.builtin.include_tasks: quay.yml
 
+- name: Install RHDH GitOps
+  ansible.builtin.include_tasks: rhdh_gitops.yml
+
 - name: Install Red Hat Developer Hub
   ansible.builtin.include_tasks: redhat_developer_hub.yml
 
