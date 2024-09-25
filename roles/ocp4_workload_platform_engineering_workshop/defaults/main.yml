@@ -290,6 +290,17 @@ ocp4_workload_platform_engineering_workshop_vault_name: vault
 ocp4_workload_platform_engineering_workshop_vault_auth_namespace: default
 
 # ------------------------------------------------
+# External Secrets
+# ------------------------------------------------
+
+ocp4_workload_platform_engineering_workshop_external_secrets_application_namespace: openshift-gitops
+ocp4_workload_platform_engineering_workshop_external_secrets_application_name: external-secrets
+ocp4_workload_platform_engineering_workshop_external_secrets_namespace: external-secrets
+ocp4_workload_platform_engineering_workshop_external_secrets_gitops_repo: https://github.com/btison/pe-workshop-helm.git
+ocp4_workload_platform_engineering_workshop_external_secrets_gitops_repo_tag: external-secrets
+ocp4_workload_platform_engineering_workshop_external_secrets_gitops_repo_path: external-secrets
+
+# ------------------------------------------------
 # RHDH GitOps
 # ------------------------------------------------
 
