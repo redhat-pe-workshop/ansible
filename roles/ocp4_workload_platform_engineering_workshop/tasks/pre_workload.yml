@@ -22,6 +22,17 @@
   ansible.builtin.set_fact:
     r_openshift_subdomain: "{{ r_openshift_ingress_controller.resources[0].status.domain }}"
 
+- name: Get API server URL
+  kubernetes.core.k8s_info:
+    api_version: config.openshift.io/v1
+    kind: Infrastructure
+    name: cluster
+  register: r_api_url
+
+- name: Set API server URL
+  ansible.builtin.set_fact:
+    r_openshift_api_server: "{{ r_api_url.resources[0].status.apiServerURL }}" 
+
 - name: Common password
   ansible.builtin.set_fact:
     common_password: "{{ lookup('ansible.builtin.password', '/tmp/passwordfile', chars=['ascii_letters'], length=8) }}"
