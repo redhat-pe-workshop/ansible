@@ -236,6 +236,8 @@ ocp4_workload_platform_engineering_workshop_gitlab_templates:
     templates:
       - org.yaml
 
+ocp4_workload_platform_engineering_workshop_gitlab_destination_group: development
+
 # ------------------------------------------------
 # Red Hat Build Of Keycloak
 # ------------------------------------------------

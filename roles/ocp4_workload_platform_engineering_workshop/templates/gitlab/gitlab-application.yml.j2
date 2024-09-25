@@ -59,6 +59,8 @@ spec:
           value: "{{ ocp4_workload_platform_engineering_workshop_gitlab_users_count }}"
         - name: gitlab.users.password
           value: {{ ocp4_workload_platform_engineering_workshop_gitlab_users_password }}
+        - name: gitlab.destinationgroup
+          value: {{ ocp4_workload_platform_engineering_workshop_gitlab_destination_group }}
         - name: cluster.subdomain
           value: {{ r_openshift_subdomain }}
 {% for group in ocp4_workload_platform_engineering_workshop_gitlab_import_repos -%}
