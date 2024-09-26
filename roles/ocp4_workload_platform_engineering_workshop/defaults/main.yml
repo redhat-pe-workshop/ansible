@@ -20,6 +20,11 @@ ocp4_workload_platform_engineering_workshop_openshift_gitops_operator_catalogsou
 ocp4_workload_platform_engineering_workshop_openshift_gitops_operator_catalog_snapshot_image: ""
 ocp4_workload_platform_engineering_workshop_openshift_gitops_operator_catalog_snapshot_image_tag: ""
 
+ocp4_workload_platform_engineering_workshop_openshift_gitops_operator_config:
+  env:
+    - name: ARGOCD_CLUSTER_CONFIG_NAMESPACES
+      value: '{{ ocp4_workload_platform_engineering_workshop_rhdh_gitops_namespace }},openshift-gitops'
+
 ocp4_workload_platform_engineering_workshop_openshift_gitops_setup_cluster_admin: true
 
 ocp4_workload_platform_engineering_workshop_openshift_gitops_enable_route: true
