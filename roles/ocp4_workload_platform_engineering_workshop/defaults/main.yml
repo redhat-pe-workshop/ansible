@@ -313,6 +313,7 @@ ocp4_workload_platform_engineering_workshop_rhdh_gitops_gitops_repo_tag: rhdh-gi
 ocp4_workload_platform_engineering_workshop_rhdh_gitops_gitops_repo_path: gitops
 
 ocp4_workload_platform_engineering_workshop_rhdh_gitops_name: rhdh-gitops
+ocp4_workload_platform_engineering_workshop_rhdh_gitops_password: "{{ common_password }}"
 
 # ------------------------------------------------
 # Red Hat Developer Hub
