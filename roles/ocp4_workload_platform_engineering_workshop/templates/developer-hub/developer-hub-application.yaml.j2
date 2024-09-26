@@ -34,6 +34,9 @@ spec:
               plugins:
                 - package: ./dynamic-plugins/dist/backstage-plugin-scaffolder-backend-module-gitlab-dynamic
                   disabled: false
+                - package: ./dynamic-plugins/dist/roadiehq-scaffolder-backend-argocd-dynamic
+                  disabled: false
+                
 
           upstream:
             postgresql:
@@ -68,6 +71,17 @@ spec:
                       rules:
                         - allow: [{{ location.rules.allow }}]
 {% endfor %}
+
+                argocd:
+                  appLocatorMethods:
+                    - type: 'config'
+                      instances:
+                        - name: main
+                          url: 	https://{{ ocp4_workload_platform_engineering_workshop_rhdh_gitops_name }}-server-{{ ocp4_workload_platform_engineering_workshop_rhdh_gitops_namespace }}.{{ r_openshift_subdomain }}
+                          username: admin
+                          password: {{ ocp4_workload_platform_engineering_workshop_rhdh_gitops_password }}
+
+
               extraContainers:
                 - name: oauth2-proxy
                   env:
