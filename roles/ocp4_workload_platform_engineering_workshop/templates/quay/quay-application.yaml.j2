@@ -33,3 +33,10 @@ spec:
             host: {{ ocp4_workload_platform_engineering_workshop_quay_registry_host }}
             adminUser: {{ ocp4_workload_platform_engineering_workshop_quay_admin_user }}
             adminUserPassword: {{ ocp4_workload_platform_engineering_workshop_quay_admin_user_password }}
+          vault:
+            name: {{ ocp4_workload_platform_engineering_workshop_vault_name }}
+            namespace: {{ ocp4_workload_platform_engineering_workshop_vault_namespace }}
+          noobaa:
+            name: {{ ocp4_workload_platform_engineering_workshop_noobaa_name }}
+            namespace: {{ ocp4_workload_platform_engineering_workshop_noobaa_namespace }}
+
