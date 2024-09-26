@@ -63,6 +63,12 @@ spec:
           value: {{ ocp4_workload_platform_engineering_workshop_gitlab_destination_group }}
         - name: cluster.subdomain
           value: {{ r_openshift_subdomain }}
+        - name: gitops.namespace
+          value: {{ ocp4_workload_platform_engineering_workshop_rhdh_gitops_namespace }}
+        - name: gitops.project
+          value: default
+        - name: quay.host
+          value: {{ ocp4_workload_platform_engineering_workshop_quay_registry_host }}
 {% for group in ocp4_workload_platform_engineering_workshop_gitlab_import_repos -%}
           {% set grouploop = loop %}
         - name: gitlab.groups[{{ grouploop.index - 1 }}].name
