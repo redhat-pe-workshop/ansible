@@ -172,6 +172,7 @@ ocp4_workload_platform_engineering_workshop_noobaa_gitops_repo: https://github.c
 ocp4_workload_platform_engineering_workshop_noobaa_gitops_repo_tag: noobaa
 ocp4_workload_platform_engineering_workshop_noobaa_gitops_repo_path: noobaa
 
+ocp4_workload_platform_engineering_workshop_noobaa_name: noobaa
 
 # ------------------------------------------------
 # GitLab

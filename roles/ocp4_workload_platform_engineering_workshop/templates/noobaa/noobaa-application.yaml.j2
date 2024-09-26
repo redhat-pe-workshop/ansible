@@ -28,3 +28,5 @@ spec:
     path: {{ ocp4_workload_platform_engineering_workshop_noobaa_gitops_repo_path }}
     helm:
       values: |
+        noobaa:
+          nameOverride: {{ ocp4_workload_platform_engineering_workshop_noobaa_name }}
