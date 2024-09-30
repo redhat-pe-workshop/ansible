@@ -69,6 +69,10 @@ spec:
           value: default
         - name: quay.host
           value: {{ ocp4_workload_platform_engineering_workshop_quay_registry_host }}
+        - name: vault.name
+          value: {{ ocp4_workload_platform_engineering_workshop_vault_name }}
+        - name: vault.namespace
+          value: {{ ocp4_workload_platform_engineering_workshop_vault_namespace }}
 {% for group in ocp4_workload_platform_engineering_workshop_gitlab_import_repos -%}
           {% set grouploop = loop %}
         - name: gitlab.groups[{{ grouploop.index - 1 }}].name
