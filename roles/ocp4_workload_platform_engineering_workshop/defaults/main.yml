@@ -167,6 +167,17 @@ ocp4_workload_platform_engineering_workshop_openshift_gitops_resource_customizat
 ocp4_workload_platform_engineering_workshop_openshift_gitops_ignore_differences: {}
 
 # ------------------------------------------------
+# OpenShift Pipelines
+# ------------------------------------------------
+
+ocp4_workload_platform_engineering_workshop_openshift_pipelines_application_namespace: openshift-gitops
+ocp4_workload_platform_engineering_workshop_openshift_pipelines_application_name: openshift-pipelines
+ocp4_workload_platform_engineering_workshop_openshift_pipelines_namespace: openshift-operators
+ocp4_workload_platform_engineering_workshop_openshift_pipelines_gitops_repo: https://github.com/btison/pe-workshop-helm.git
+ocp4_workload_platform_engineering_workshop_openshift_pipelines_gitops_repo_tag: openshift-pipelines
+ocp4_workload_platform_engineering_workshop_openshift_pipelines_gitops_repo_path: openshift-pipelines
+
+# ------------------------------------------------
 # NooBaa
 # ------------------------------------------------
 

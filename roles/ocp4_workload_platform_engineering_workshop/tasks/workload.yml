@@ -3,6 +3,9 @@
 - name: Install OpenShift Gitops
   ansible.builtin.include_tasks: openshift_gitops.yml
 
+- name: Install OpenShift Pipelines
+  ansible.builtin.include_tasks: openshift_pipelines.yml
+
 - name: Install NooBaa
   ansible.builtin.include_tasks: noobaa.yml
 
