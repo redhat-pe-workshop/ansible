@@ -12,6 +12,20 @@ spec:
     namespace: {{ ocp4_workload_platform_engineering_workshop_rhdh_namespace }}
     server: 'https://kubernetes.default.svc'
   project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    retry:
+      backoff:
+        duration: 10s
+        factor: 2
+        maxDuration: 10m
+      limit: 15
+    syncOptions:
+      - CreateNamespace=true
+      - RespectIgnoreDifferences=true
+      - ApplyOutOfSyncOnly=true
   source:
     repoURL: {{ ocp4_workload_platform_engineering_workshop_rhdh_helm_repo }}
     path: {{ ocp4_workload_platform_engineering_workshop_rhdh_helm_repo_path }}
@@ -23,7 +37,7 @@ spec:
           backstage:
             postgresql:
               password: {{ ocp4_workload_platform_engineering_workshop_rhdh_psql_password }}
-        redhat-developer-hub:          
+        redhat-developer-hub:
           global:
             clusterRouterBase: {{ r_openshift_subdomain }}
             host: backstage-{{ ocp4_workload_platform_engineering_workshop_rhdh_namespace }}.{{ r_openshift_subdomain }}
@@ -36,7 +50,10 @@ spec:
                   disabled: false
                 - package: ./dynamic-plugins/dist/roadiehq-scaffolder-backend-argocd-dynamic
                   disabled: false
-                
+                - package: ./dynamic-plugins/dist/backstage-plugin-kubernetes-backend-dynamic
+                  disabled: false
+                - package: ./dynamic-plugins/dist/backstage-plugin-kubernetes
+                  disabled: false                
 
           upstream:
             postgresql:
@@ -46,7 +63,6 @@ spec:
                 existingSecret: backstage-postgresql
                 secretKeys:
                   userPasswordKey: postgres-password
-
 
             backstage:
               appConfig:
@@ -81,6 +97,25 @@ spec:
                           username: admin
                           password: {{ ocp4_workload_platform_engineering_workshop_rhdh_gitops_password }}
 
+                kubernetes:
+                  serviceLocatorMethod:
+                    type: multiTenant
+                  clusterLocatorMethods:
+                    - clusters:
+                        - name: dev-cluster
+                          url: {{ r_openshift_api_server }}
+                          authProvider: serviceAccount
+                          skipTLSVerify: true
+                          serviceAccountToken: {{ ocp4_workload_platform_engineering_workshop_rhdh_ocp_default_sa_token }}
+                      type: config
+
+              extraEnvVars:
+                - name: NODE_OPTIONS
+                  value: --no-node-snapshot
+                - name: BACKEND_SECRET
+                  value: "{{ '{{ randAlphaNum 24 | b64enc }}' }}"
+                - name: NODE_TLS_REJECT_UNAUTHORIZED
+                  value: "0"
 
               extraContainers:
                 - name: oauth2-proxy
@@ -114,17 +149,3 @@ spec:
                 targetPort: oauth2-proxy
           route:
             host: backstage-{{ ocp4_workload_platform_engineering_workshop_rhdh_namespace }}.{{ r_openshift_subdomain }}
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    retry:
-      backoff:
-        duration: 10s
-        factor: 2
-        maxDuration: 10m
-      limit: 15
-    syncOptions:
-      - CreateNamespace=true
-      - RespectIgnoreDifferences=true
-      - ApplyOutOfSyncOnly=true
