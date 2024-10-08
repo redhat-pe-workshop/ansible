@@ -56,6 +56,8 @@ spec:
                   disabled: false
                 - package: ./dynamic-plugins/dist/janus-idp-backstage-plugin-topology
                   disabled: false
+                - package: ./dynamic-plugins/dist/janus-idp-backstage-plugin-tekton
+                  disabled: false
 
           upstream:
             postgresql:
@@ -110,6 +112,13 @@ spec:
                           skipTLSVerify: true
                           serviceAccountToken: {{ ocp4_workload_platform_engineering_workshop_rhdh_ocp_default_sa_token }}
                       type: config
+                  customResources:
+                    - group: 'tekton.dev'
+                      apiVersion: 'v1beta1'
+                      plural: 'pipelineruns'
+                    - group: 'tekton.dev'
+                      apiVersion: 'v1beta1'
+                      plural: 'taskruns'
 
               extraEnvVars:
                 - name: NODE_OPTIONS
