@@ -72,6 +72,12 @@ spec:
                         - allow: [{{ location.rules.allow }}]
 {% endfor %}
 
+                techdocs:
+                  builder: 'local'
+                  publisher:
+                    type: 'local'
+                  generator:
+                    runIn: local
                 argocd:
                   appLocatorMethods:
                     - type: 'config'
