@@ -55,10 +55,6 @@ spec:
           value: {{ ocp4_workload_platform_engineering_workshop_gitlab_db_password }}
         - name: gitlab.postgresql.dbName
           value: {{ ocp4_workload_platform_engineering_workshop_gitlab_db_name }}
-        - name: gitlab.users.count
-          value: "{{ ocp4_workload_platform_engineering_workshop_gitlab_users_count }}"
-        - name: gitlab.users.password
-          value: {{ ocp4_workload_platform_engineering_workshop_gitlab_users_password }}
         - name: gitlab.destinationgroup
           value: {{ ocp4_workload_platform_engineering_workshop_gitlab_destination_group }}
         - name: cluster.subdomain
@@ -73,7 +69,14 @@ spec:
           value: {{ ocp4_workload_platform_engineering_workshop_vault_name }}
         - name: vault.namespace
           value: {{ ocp4_workload_platform_engineering_workshop_vault_namespace }}
-{% for group in ocp4_workload_platform_engineering_workshop_gitlab_import_repos -%}
+{% for user in ocp4_workload_platform_engineering_workshop_gitlab_users -%}
+{% set userloop = loop %}
+        - name: gitlab.users[{{ userloop.index - 1 }}].id
+          value: {{ user.id }}
+        - name: gitlab.users[{{ userloop.index - 1 }}].password
+          value: {{ common_password }}
+{% endfor %}
+{% for group in ocp4_workload_platform_engineering_workshop_gitlab_groups -%}
           {% set grouploop = loop %}
         - name: gitlab.groups[{{ grouploop.index - 1 }}].name
           value: {{ group.name }}
@@ -82,6 +85,10 @@ spec:
           value: {{ repo.name }}
         - name: gitlab.groups[{{ grouploop.index - 1 }}].repo[{{ loop.index - 1 }}].url
           value: {{ repo.url }}
+{% endfor %}
+{% for user in group.users %}
+        - name: gitlab.groups[{{ grouploop.index - 1 }}].user[{{ loop.index - 1 }}].id
+          value: {{ user.id }}
 {% endfor %}
 {% endfor %}
 {% for template in ocp4_workload_platform_engineering_workshop_gitlab_templates -%}
