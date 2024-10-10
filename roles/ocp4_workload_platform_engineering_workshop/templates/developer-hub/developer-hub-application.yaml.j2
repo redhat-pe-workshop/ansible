@@ -105,6 +105,13 @@ spec:
                         loginRealm: {{ ocp4_workload_platform_engineering_workshop_rhbk_realm_backstage_name }}
                         clientId: {{ ocp4_workload_platform_engineering_workshop_rhbk_client_backstage_plugin_name }}
                         clientSecret: {{ ocp4_workload_platform_engineering_workshop_rhbk_client_backstage_plugin_secret }}
+
+                techdocs:
+                  builder: 'local'
+                  publisher:
+                    type: 'local'
+                  generator:
+                    runIn: local
                 argocd:
                   appLocatorMethods:
                     - type: 'config'
