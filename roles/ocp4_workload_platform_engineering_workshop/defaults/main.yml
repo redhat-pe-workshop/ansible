@@ -283,11 +283,34 @@ ocp4_workload_platform_engineering_workshop_rhbk_external_access: false
 ocp4_workload_platform_engineering_workshop_rhbk_host: sso
 
 ocp4_workload_platform_engineering_workshop_rhbk_realm_backstage_name: backstage
-ocp4_workload_platform_engineering_workshop_rhbk_user_prefix: user
-ocp4_workload_platform_engineering_workshop_rhbk_user_count: "{{ num_users | default(1) }}"
 
 ocp4_workload_platform_engineering_workshop_rhbk_client_backstage_secret:
   "{{ lookup('ansible.builtin.password', '/tmp/passwordfile-client-backstage', chars=['ascii_letters', 'digits'], length=32) }}"
+
+ocp4_workload_platform_engineering_workshop_rhbk_users:
+  - id: dev1
+    password: "{{ common_password }}"
+    groups:
+      - developers
+      - devteam1
+  - id: dev2
+    password: "{{ common_password }}"
+    groups:
+      - developers
+      - devteam1
+  - id: pe1
+    password: "{{ common_password }}"
+    groups:
+      - platformengineers
+  - id: pe2
+    password: "{{ common_password }}"
+    groups:
+      - platformengineers
+
+ocp4_workload_platform_engineering_workshop_rhbk_groups:
+  - name: developers
+  - name: devteam1
+  - name: platformengineers
 
 # ------------------------------------------------
 # Quay
