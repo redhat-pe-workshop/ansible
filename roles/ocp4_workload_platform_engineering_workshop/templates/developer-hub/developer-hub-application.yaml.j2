@@ -62,6 +62,8 @@ spec:
                   disabled: false
                 - package: ./dynamic-plugins/dist/backstage-community-plugin-redhat-argocd
                   disabled: false
+                - package: ./dynamic-plugins/dist/janus-idp-backstage-plugin-keycloak-backend-dynamic
+                  disabled: false
 
           upstream:
             postgresql:
@@ -95,7 +97,14 @@ spec:
                       rules:
                         - allow: [{{ location.rules.allow }}]
 {% endfor %}
-
+                  providers:
+                    keycloakOrg:
+                      default:
+                        baseUrl: https://{{ ocp4_workload_platform_engineering_workshop_rhbk_host }}.{{ r_openshift_subdomain }}
+                        realm: {{ ocp4_workload_platform_engineering_workshop_rhbk_realm_backstage_name }}
+                        loginRealm: {{ ocp4_workload_platform_engineering_workshop_rhbk_realm_backstage_name }}
+                        clientId: {{ ocp4_workload_platform_engineering_workshop_rhbk_client_backstage_plugin_name }}
+                        clientSecret: {{ ocp4_workload_platform_engineering_workshop_rhbk_client_backstage_plugin_secret }}
                 argocd:
                   appLocatorMethods:
                     - type: 'config'
@@ -136,7 +145,7 @@ spec:
                 - name: oauth2-proxy
                   env:
                     - name: OAUTH2_PROXY_CLIENT_ID
-                      value: {{ ocp4_workload_platform_engineering_workshop_rhbk_realm_backstage_name }}
+                      value: {{ ocp4_workload_platform_engineering_workshop_rhbk_client_backstage_name }}
                     - name: OAUTH2_PROXY_CLIENT_SECRET
                       value: {{ ocp4_workload_platform_engineering_workshop_rhbk_client_backstage_secret }}
                     - name: OAUTH2_PROXY_COOKIE_SECRET

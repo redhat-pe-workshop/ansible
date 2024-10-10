@@ -35,6 +35,7 @@ spec:
       values: |
 
         keycloak:
+
           route:
             host: {{ ocp4_workload_platform_engineering_workshop_rhbk_host }}.{{ r_openshift_subdomain }}
 
@@ -43,9 +44,14 @@ spec:
         keycloak-realm-import:
           realm:
             name: {{ ocp4_workload_platform_engineering_workshop_rhbk_realm_backstage_name }}
-          backstage:
-            redirectUri: {{ _backstage_redirect_url }}
-            webOrigin: {{ _backstage_web_origin }}
-            secret: {{ ocp4_workload_platform_engineering_workshop_rhbk_client_backstage_secret }}
+          client:
+            backstage:
+              name: {{ ocp4_workload_platform_engineering_workshop_rhbk_client_backstage_name }}
+              redirectUri: {{ _backstage_redirect_url }}
+              webOrigin: {{ _backstage_web_origin }}
+              secret: {{ ocp4_workload_platform_engineering_workshop_rhbk_client_backstage_secret }}
+            backstagePlugin:
+              name: {{ ocp4_workload_platform_engineering_workshop_rhbk_client_backstage_plugin_name }}
+              secret: {{ ocp4_workload_platform_engineering_workshop_rhbk_client_backstage_plugin_secret }}
           users: {{ ocp4_workload_platform_engineering_workshop_rhbk_users }}
           groups: {{ ocp4_workload_platform_engineering_workshop_rhbk_groups }}
