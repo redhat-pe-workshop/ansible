@@ -291,24 +291,32 @@ ocp4_workload_platform_engineering_workshop_rhbk_users:
     groups:
       - developers
       - devteam1
+      - dev1
   - id: dev2
     password: "{{ common_password }}"
     groups:
       - developers
       - devteam1
+      - dev2
   - id: pe1
     password: "{{ common_password }}"
     groups:
       - platformengineers
+      - pe1
   - id: pe2
     password: "{{ common_password }}"
     groups:
       - platformengineers
+      - pe2
 
 ocp4_workload_platform_engineering_workshop_rhbk_groups:
   - name: developers
   - name: devteam1
   - name: platformengineers
+  - name: dev1
+  - name: dev2
+  - name: pe1
+  - name: pe2
 
 # ------------------------------------------------
 # Quay
