@@ -35,6 +35,15 @@ spec:
         redhat-developer-hub-prereqs:
           nameOverride: backstage
           backstage:
+            oauth:
+              clientId: {{ ocp4_workload_platform_engineering_workshop_rhbk_client_backstage_name }}
+              clientSecret: {{ ocp4_workload_platform_engineering_workshop_rhbk_client_backstage_secret }}
+            kubernetes:
+              sa_token: {{ ocp4_workload_platform_engineering_workshop_rhdh_ocp_default_sa_token }}
+            gitlab:
+              token: {{ _ocp4_workload_platform_engineering_workshop_gitlab_root_token }}
+            argocd:
+              password: {{ ocp4_workload_platform_engineering_workshop_rhdh_gitops_password }}
             postgresql:
               password: {{ ocp4_workload_platform_engineering_workshop_rhdh_psql_password }}
         redhat-developer-hub:
@@ -79,6 +88,12 @@ spec:
                   userPasswordKey: postgres-password
 
             backstage:
+              extraEnvVarsSecrets:
+                - gitlab-token
+                - argocd-password
+                - kubernetes-sa-token
+                - oauth-client
+
               appConfig:
                 auth:
                   environment: production
@@ -90,7 +105,7 @@ spec:
                     - apiBaseUrl: https://{{ ocp4_workload_platform_engineering_workshop_gitlab_config_host }}/api/v4
                       baseUrl: https://{{ ocp4_workload_platform_engineering_workshop_gitlab_config_host }}
                       host: {{ ocp4_workload_platform_engineering_workshop_gitlab_config_host }}
-                      token: {{ _ocp4_workload_platform_engineering_workshop_gitlab_root_token }}
+                      token: ${GITLAB_TOKEN}
                 catalog:
                   rules:
                     - allow: [Component, System, API, Resource, Location, Template]
@@ -123,7 +138,7 @@ spec:
                         - name: main
                           url: 	https://{{ ocp4_workload_platform_engineering_workshop_rhdh_gitops_name }}-server-{{ ocp4_workload_platform_engineering_workshop_rhdh_gitops_namespace }}.{{ r_openshift_subdomain }}
                           username: admin
-                          password: {{ ocp4_workload_platform_engineering_workshop_rhdh_gitops_password }}
+                          password: ${ARGOCD_PASSWORD}
 
                 kubernetes:
                   serviceLocatorMethod:
@@ -134,7 +149,7 @@ spec:
                           url: {{ r_openshift_api_server }}
                           authProvider: serviceAccount
                           skipTLSVerify: true
-                          serviceAccountToken: {{ ocp4_workload_platform_engineering_workshop_rhdh_ocp_default_sa_token }}
+                          serviceAccountToken: ${KUBERNETES_SA_TOKEN}
                       type: config
                   customResources:
                     - group: 'tekton.dev'
@@ -156,9 +171,15 @@ spec:
                 - name: oauth2-proxy
                   env:
                     - name: OAUTH2_PROXY_CLIENT_ID
-                      value: {{ ocp4_workload_platform_engineering_workshop_rhbk_client_backstage_name }}
+                      valueFrom:
+                        secretKeyRef:
+                          name: oauth-client
+                          key: OAUTH_CLIENT_ID
                     - name: OAUTH2_PROXY_CLIENT_SECRET
-                      value: {{ ocp4_workload_platform_engineering_workshop_rhbk_client_backstage_secret }}
+                      valueFrom:
+                        secretKeyRef:
+                          name: oauth-client
+                          key: OAUTH_CLIENT_SECRET
                     - name: OAUTH2_PROXY_COOKIE_SECRET
                       value: "{{ '{{ randAlpha 32 | lower | b64enc }}' }}"
                     - name: OAUTH2_PROXY_OIDC_ISSUER_URL
