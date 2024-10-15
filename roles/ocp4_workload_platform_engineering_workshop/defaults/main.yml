@@ -265,6 +265,7 @@ ocp4_workload_platform_engineering_workshop_gitlab_destination_group: devteam1
 # Red Hat Build Of Keycloak
 # ------------------------------------------------
 
+ocp4_workload_platform_engineering_workshop_rhbk_client_backstage_name: backstage
 ocp4_workload_platform_engineering_workshop_rhbk_application_namespace: openshift-gitops
 ocp4_workload_platform_engineering_workshop_rhbk_application_name: keycloak
 ocp4_workload_platform_engineering_workshop_rhbk_namespace: keycloak
