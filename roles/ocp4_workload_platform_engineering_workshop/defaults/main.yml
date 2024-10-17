@@ -334,6 +334,9 @@ ocp4_workload_platform_engineering_workshop_quay_registry_host: "quay.{{ r_opens
 ocp4_workload_platform_engineering_workshop_quay_admin_user: quayadmin
 ocp4_workload_platform_engineering_workshop_quay_admin_user_password: "{{ common_password }}"
 
+ocp4_workload_platform_engineering_workshop_quay_organizations:
+  - parasol
+
 # ------------------------------------------------
 # Vault
 # ------------------------------------------------
