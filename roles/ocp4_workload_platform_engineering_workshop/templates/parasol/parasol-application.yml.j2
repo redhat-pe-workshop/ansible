@@ -1,0 +1,43 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ ocp4_workload_platform_engineering_workshop_parasol_application_name }}
+  namespace: {{ ocp4_workload_platform_engineering_workshop_parasol_application_namespace }}
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io/foreground
+spec:
+  destination:
+    namespace: {{ ocp4_workload_platform_engineering_workshop_parasol_namespace }}
+    server: 'https://kubernetes.default.svc'
+  project: default
+  source:
+    repoURL: {{ ocp4_workload_platform_engineering_workshop_parasol_application_repo }}
+    path: {{ ocp4_workload_platform_engineering_workshop_parasol_application_repo_path }}
+    targetRevision: {{ ocp4_workload_platform_engineering_workshop_parasol_application_repo_tag }}
+    helm:
+      values: |
+        gitlab:
+          rootPassword: {{ ocp4_workload_platform_engineering_workshop_gitlab_config_root_password }}
+          host: {{ ocp4_workload_platform_engineering_workshop_gitlab_config_host }}
+          email:
+            address: {{ ocp4_workload_platform_engineering_workshop_gitlab_config_email_address }}
+            displayName: {{ ocp4_workload_platform_engineering_workshop_gitlab_config_email_display_name }}
+        parasol:
+          group: {{ ocp4_workload_platform_engineering_workshop_parasol_gitlab_group }}
+          db:
+            templates: {{ ocp4_workload_platform_engineering_workshop_parasol_db_templates }}
+            argocd:
+              name: {{ ocp4_workload_platform_engineering_workshop_parasol_db_application_name }}
+              namespace: {{ ocp4_workload_platform_engineering_workshop_rhdh_gitops_namespace }}
+          store: 
+            templates: {{ ocp4_workload_platform_engineering_workshop_parasol_store_templates }}
+            argocd:
+              name: {{ ocp4_workload_platform_engineering_workshop_parasol_store_application_name }}
+              namespace: {{ ocp4_workload_platform_engineering_workshop_rhdh_gitops_namespace }}
+        registry:
+          username: {{ ocp4_workload_platform_engineering_workshop_quay_admin_user }}
+          password: {{ ocp4_workload_platform_engineering_workshop_quay_admin_user_password }}
+
+  syncPolicy:
+    automated: {}
