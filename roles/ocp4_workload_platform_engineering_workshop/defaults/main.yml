@@ -251,6 +251,19 @@ ocp4_workload_platform_engineering_workshop_gitlab_groups:
     users:
       - id: dev1
       - id: dev2
+  - name: parasol
+    repo:
+      - name: parasol-store
+        url: https://github.com/btison/pew-parasol-store.git
+      - name: parasol-web
+        url: https://github.com/btison/pew-parasol-web.git
+      - name: parasol-db-manifests
+        url: https://github.com/btison/pew-parasol-db-manifests.git
+      - name: parasol-store-manifests
+        url: https://github.com/btison/pew-parasol-store-manifests.git
+    users:
+      - id: dev1
+      - id: dev2
 
 ocp4_workload_platform_engineering_workshop_gitlab_templates:
   - group: rhdh
