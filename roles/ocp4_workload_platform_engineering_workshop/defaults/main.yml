@@ -261,6 +261,8 @@ ocp4_workload_platform_engineering_workshop_gitlab_groups:
         url: https://github.com/btison/pew-parasol-db-manifests.git
       - name: parasol-store-manifests
         url: https://github.com/btison/pew-parasol-store-manifests.git
+      - name: parasol-web-manifests
+        url: https://github.com/btison/pew-parasol-web-manifests.git
     users:
       - id: dev1
       - id: dev2
@@ -481,6 +483,75 @@ ocp4_workload_platform_engineering_workshop_parasol_store_templates:
       organization: parasol
       name: parasol-store
       tag: latest
+    templates:
+      - app/argocd/app.yaml
+      - app/values/values-prod.yaml
+    applications:
+      - app/argocd/app.yaml
+
+ocp4_workload_platform_engineering_workshop_parasol_keycloak_realm: parasol
+ocp4_workload_platform_engineering_workshop_parasol_keycloak_client: parasol-web-gateway
+
+ocp4_workload_platform_engineering_workshop_parasol_web_application_name: parasol-web
+ocp4_workload_platform_engineering_workshop_parasol_web_templates:
+  - project: parasol-web-manifests
+    branch: main
+    namespace: parasol-dev
+    image:
+      host: "{{ ocp4_workload_platform_engineering_workshop_quay_registry_host }}"
+      organization: parasol
+      name: parasol-web
+      tag: latest
+    sso:
+      # yamllint disable-line rule:line-length
+      url: "https://{{ ocp4_workload_platform_engineering_workshop_rhbk_host }}.{{ r_openshift_subdomain }}/realms/{{ ocp4_workload_platform_engineering_workshop_parasol_keycloak_realm }}"
+      client: "{{ ocp4_workload_platform_engineering_workshop_parasol_keycloak_client }}"
+      logoutUrl: "https://parasol-web-parasol-dev.{{ r_openshift_subdomain }}/home"
+    store:
+      url: http://parasol-store:8080
+      service: parasol-store
+    templates:
+      - app/argocd/app.yaml
+      - app/values/values-dev.yaml
+    applications:
+      - app/argocd/app.yaml
+  - project: parasol-web-manifests
+    branch: staging
+    namespace: parasol-staging
+    image:
+      host: "{{ ocp4_workload_platform_engineering_workshop_quay_registry_host }}"
+      organization: parasol
+      name: parasol-web
+      tag: latest
+    sso:
+      # yamllint disable-line rule:line-length
+      url: "https://{{ ocp4_workload_platform_engineering_workshop_rhbk_host }}.{{ r_openshift_subdomain }}/realms/{{ ocp4_workload_platform_engineering_workshop_parasol_keycloak_realm }}"
+      client: "{{ ocp4_workload_platform_engineering_workshop_parasol_keycloak_client }}"
+      logoutUrl: "https://parasol-web-parasol-staging.{{ r_openshift_subdomain }}/home"
+    store:
+      url: http://parasol-store:8080
+      service: parasol-store
+    templates:
+      - app/argocd/app.yaml
+      - app/values/values-staging.yaml
+    applications:
+      - app/argocd/app.yaml
+  - project: parasol-web-manifests
+    branch: prod
+    namespace: parasol-prod
+    image:
+      host: "{{ ocp4_workload_platform_engineering_workshop_quay_registry_host }}"
+      organization: parasol
+      name: parasol-web
+      tag: latest
+    sso:
+      # yamllint disable-line rule:line-length
+      url: "https://{{ ocp4_workload_platform_engineering_workshop_rhbk_host }}.{{ r_openshift_subdomain }}/realms/{{ ocp4_workload_platform_engineering_workshop_parasol_keycloak_realm }}"
+      client: "{{ ocp4_workload_platform_engineering_workshop_parasol_keycloak_client }}"
+      logoutUrl: "https://parasol-web-parasol-prod.{{ r_openshift_subdomain }}/home"
+    store:
+      url: http://parasol-store:8080
+      service: parasol-store
     templates:
       - app/argocd/app.yaml
       - app/values/values-prod.yaml

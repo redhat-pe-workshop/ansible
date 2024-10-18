@@ -17,27 +17,49 @@ spec:
     targetRevision: {{ ocp4_workload_platform_engineering_workshop_parasol_application_repo_tag }}
     helm:
       values: |
-        gitlab:
-          rootPassword: {{ ocp4_workload_platform_engineering_workshop_gitlab_config_root_password }}
-          host: {{ ocp4_workload_platform_engineering_workshop_gitlab_config_host }}
-          email:
-            address: {{ ocp4_workload_platform_engineering_workshop_gitlab_config_email_address }}
-            displayName: {{ ocp4_workload_platform_engineering_workshop_gitlab_config_email_display_name }}
         parasol:
-          group: {{ ocp4_workload_platform_engineering_workshop_parasol_gitlab_group }}
-          db:
-            templates: {{ ocp4_workload_platform_engineering_workshop_parasol_db_templates }}
-            argocd:
-              name: {{ ocp4_workload_platform_engineering_workshop_parasol_db_application_name }}
-              namespace: {{ ocp4_workload_platform_engineering_workshop_rhdh_gitops_namespace }}
-          store: 
-            templates: {{ ocp4_workload_platform_engineering_workshop_parasol_store_templates }}
-            argocd:
-              name: {{ ocp4_workload_platform_engineering_workshop_parasol_store_application_name }}
-              namespace: {{ ocp4_workload_platform_engineering_workshop_rhdh_gitops_namespace }}
-        registry:
-          username: {{ ocp4_workload_platform_engineering_workshop_quay_admin_user }}
-          password: {{ ocp4_workload_platform_engineering_workshop_quay_admin_user_password }}
+          gitlab:
+            rootPassword: {{ ocp4_workload_platform_engineering_workshop_gitlab_config_root_password }}
+            host: {{ ocp4_workload_platform_engineering_workshop_gitlab_config_host }}
+            email:
+              address: {{ ocp4_workload_platform_engineering_workshop_gitlab_config_email_address }}
+              displayName: {{ ocp4_workload_platform_engineering_workshop_gitlab_config_email_display_name }}
+          parasol:
+            group: {{ ocp4_workload_platform_engineering_workshop_parasol_gitlab_group }}
+            db:
+              templates: {{ ocp4_workload_platform_engineering_workshop_parasol_db_templates }}
+              argocd:
+                name: {{ ocp4_workload_platform_engineering_workshop_parasol_db_application_name }}
+                namespace: {{ ocp4_workload_platform_engineering_workshop_rhdh_gitops_namespace }}
+            store: 
+              templates: {{ ocp4_workload_platform_engineering_workshop_parasol_store_templates }}
+              argocd:
+                name: {{ ocp4_workload_platform_engineering_workshop_parasol_store_application_name }}
+                namespace: {{ ocp4_workload_platform_engineering_workshop_rhdh_gitops_namespace }}
+            web:
+              templates: {{ ocp4_workload_platform_engineering_workshop_parasol_web_templates }}
+              argocd:
+                name: {{ ocp4_workload_platform_engineering_workshop_parasol_web_application_name }}
+                namespace: {{ ocp4_workload_platform_engineering_workshop_rhdh_gitops_namespace }}
+          registry:
+            username: {{ ocp4_workload_platform_engineering_workshop_quay_admin_user }}
+            password: {{ ocp4_workload_platform_engineering_workshop_quay_admin_user_password }}
+        
+        keycloak-realm-import:
+          realm:
+            name: {{ ocp4_workload_platform_engineering_workshop_parasol_keycloak_realm }}
+          client:
+            gateway: {{ ocp4_workload_platform_engineering_workshop_parasol_keycloak_client }}
+          keycloak:
+            name: {{ ocp4_workload_platform_engineering_workshop_rhbk_cr_name }}
+            namespace: {{ ocp4_workload_platform_engineering_workshop_rhbk_namespace }}
+          hook:
+            maxTimeToWait: {{ocp4_workload_platform_engineering_workshop_rhbk_max_time_to_wait }}
 
   syncPolicy:
     automated: {}
+  ignoreDifferences:
+    - group: k8s.keycloak.org
+      kind: KeycloakRealmImport
+      jqPathExpressions: 
+        - .. | (.id, .containerId, .secret)? | strings
