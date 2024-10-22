@@ -452,11 +452,6 @@ ocp4_workload_platform_engineering_workshop_parasol_store_templates:
   - project: parasol-store-manifests
     branch: main
     namespace: parasol-dev
-    image:
-      host: "{{ ocp4_workload_platform_engineering_workshop_quay_registry_host }}"
-      organization: parasol
-      name: parasol-store
-      tag: latest
     templates:
       - app/argocd/app.yaml
       - app/values/values-dev.yaml
@@ -465,11 +460,6 @@ ocp4_workload_platform_engineering_workshop_parasol_store_templates:
   - project: parasol-store-manifests
     branch: staging
     namespace: parasol-staging
-    image:
-      host: "{{ ocp4_workload_platform_engineering_workshop_quay_registry_host }}"
-      organization: parasol
-      name: parasol-store
-      tag: latest
     templates:
       - app/argocd/app.yaml
       - app/values/values-staging.yaml
@@ -478,11 +468,6 @@ ocp4_workload_platform_engineering_workshop_parasol_store_templates:
   - project: parasol-store-manifests
     branch: prod
     namespace: parasol-prod
-    image:
-      host: "{{ ocp4_workload_platform_engineering_workshop_quay_registry_host }}"
-      organization: parasol
-      name: parasol-store
-      tag: latest
     templates:
       - app/argocd/app.yaml
       - app/values/values-prod.yaml
@@ -518,11 +503,6 @@ ocp4_workload_platform_engineering_workshop_parasol_web_templates:
   - project: parasol-web-manifests
     branch: staging
     namespace: parasol-staging
-    image:
-      host: "{{ ocp4_workload_platform_engineering_workshop_quay_registry_host }}"
-      organization: parasol
-      name: parasol-web
-      tag: latest
     sso:
       # yamllint disable-line rule:line-length
       url: "https://{{ ocp4_workload_platform_engineering_workshop_rhbk_host }}.{{ r_openshift_subdomain }}/realms/{{ ocp4_workload_platform_engineering_workshop_parasol_keycloak_realm }}"
@@ -539,11 +519,6 @@ ocp4_workload_platform_engineering_workshop_parasol_web_templates:
   - project: parasol-web-manifests
     branch: prod
     namespace: parasol-prod
-    image:
-      host: "{{ ocp4_workload_platform_engineering_workshop_quay_registry_host }}"
-      organization: parasol
-      name: parasol-web
-      tag: latest
     sso:
       # yamllint disable-line rule:line-length
       url: "https://{{ ocp4_workload_platform_engineering_workshop_rhbk_host }}.{{ r_openshift_subdomain }}/realms/{{ ocp4_workload_platform_engineering_workshop_parasol_keycloak_realm }}"

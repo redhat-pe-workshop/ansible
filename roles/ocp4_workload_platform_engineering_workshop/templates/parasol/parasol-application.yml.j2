@@ -42,6 +42,7 @@ spec:
                 name: {{ ocp4_workload_platform_engineering_workshop_parasol_web_application_name }}
                 namespace: {{ ocp4_workload_platform_engineering_workshop_rhdh_gitops_namespace }}
           registry:
+            host: {{ ocp4_workload_platform_engineering_workshop_quay_registry_host }}
             username: {{ ocp4_workload_platform_engineering_workshop_quay_admin_user }}
             password: {{ ocp4_workload_platform_engineering_workshop_quay_admin_user_password }}
         
