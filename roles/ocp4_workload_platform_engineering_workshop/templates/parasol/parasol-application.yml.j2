@@ -46,6 +46,25 @@ spec:
             username: {{ ocp4_workload_platform_engineering_workshop_quay_admin_user }}
             password: {{ ocp4_workload_platform_engineering_workshop_quay_admin_user_password }}
         
+        parasol-build:
+          gitlab:
+            rootPassword: {{ ocp4_workload_platform_engineering_workshop_gitlab_config_root_password }}
+            host: {{ ocp4_workload_platform_engineering_workshop_gitlab_config_host }}
+            email:
+              address: {{ ocp4_workload_platform_engineering_workshop_gitlab_config_email_address }}
+              displayName: {{ ocp4_workload_platform_engineering_workshop_gitlab_config_email_display_name }}
+          parasol:
+            group: {{ ocp4_workload_platform_engineering_workshop_parasol_gitlab_group }}
+            store: 
+              templates: {{ ocp4_workload_platform_engineering_workshop_parasol_store_build_templates }}
+              argocd:
+                name: {{ ocp4_workload_platform_engineering_workshop_parasol_store_build_application_name }}
+                namespace: {{ ocp4_workload_platform_engineering_workshop_rhdh_gitops_namespace }}
+          registry:
+            host: {{ ocp4_workload_platform_engineering_workshop_quay_registry_host }}
+            username: {{ ocp4_workload_platform_engineering_workshop_quay_admin_user }}
+            password: {{ ocp4_workload_platform_engineering_workshop_quay_admin_user_password }}          
+        
         keycloak-realm-import:
           realm:
             name: {{ ocp4_workload_platform_engineering_workshop_parasol_keycloak_realm }}

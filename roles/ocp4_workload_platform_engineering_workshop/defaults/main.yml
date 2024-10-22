@@ -263,6 +263,8 @@ ocp4_workload_platform_engineering_workshop_gitlab_groups:
         url: https://github.com/btison/pew-parasol-store-manifests.git
       - name: parasol-web-manifests
         url: https://github.com/btison/pew-parasol-web-manifests.git
+      - name: parasol-store-build-manifests
+        url: https://github.com/btison/pew-parasol-store-build-manifests.git
     users:
       - id: dev1
       - id: dev2
@@ -532,3 +534,17 @@ ocp4_workload_platform_engineering_workshop_parasol_web_templates:
       - app/values/values-prod.yaml
     applications:
       - app/argocd/app.yaml
+
+ocp4_workload_platform_engineering_workshop_parasol_store_build_application_name: parasol-store-build
+ocp4_workload_platform_engineering_workshop_parasol_store_build_templates:
+  - project: parasol-store-build-manifests
+    branch: main
+    namespace: parasol-build
+    git:
+      repo: https://{{ ocp4_workload_platform_engineering_workshop_gitlab_config_host }}/parasol/parasol-store.git
+      branch: main
+    templates:
+      - argocd/app-build.yaml
+      - values/values.yaml
+    applications:
+      - argocd/app-build.yaml
