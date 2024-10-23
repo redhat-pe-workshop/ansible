@@ -63,7 +63,9 @@ spec:
           registry:
             host: {{ ocp4_workload_platform_engineering_workshop_quay_registry_host }}
             username: {{ ocp4_workload_platform_engineering_workshop_quay_admin_user }}
-            password: {{ ocp4_workload_platform_engineering_workshop_quay_admin_user_password }}          
+            password: {{ ocp4_workload_platform_engineering_workshop_quay_admin_user_password }}
+          cluster:
+            subdomain: {{ r_openshift_subdomain }}
         
         keycloak-realm-import:
           realm:
