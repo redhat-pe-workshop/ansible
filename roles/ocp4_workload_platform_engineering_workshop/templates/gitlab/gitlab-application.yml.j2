@@ -13,97 +13,24 @@ spec:
   source:
     helm:
       parameters:
-        - name: gitlab.email.address
-          value: "{{ ocp4_workload_platform_engineering_workshop_gitlab_config_email_address }}"
-        - name: gitlab.email.displayName
-          value: "{{ ocp4_workload_platform_engineering_workshop_gitlab_config_email_display_name }}"
-        - name: gitlab.email.replyTo
-          value: "{{ ocp4_workload_platform_engineering_workshop_gitlab_config_email_reply_to }}"
-        - name: gitlab.smtp.enabled
-          value: "{{ ocp4_workload_platform_engineering_workshop_gitlab_config_smtp_enabled }}"
-        - name: gitlab.smtp.domain
-          value: "{{ ocp4_workload_platform_engineering_workshop_gitlab_config_smtp_domain }}"
         - name: gitlab.smtp.host
           value: "{{ ocp4_workload_platform_engineering_workshop_gitlab_config_smtp_host }}"
-        - name: gitlab.smtp.port
-          value: "{{ ocp4_workload_platform_engineering_workshop_gitlab_config_smtp_port }}"
-        - name: gitlab.smtp.user
-          value: "{{ ocp4_workload_platform_engineering_workshop_gitlab_config_smtp_user }}"
-        - name: gitlab.smtp.password
-          value: "{{ ocp4_workload_platform_engineering_workshop_gitlab_config_smtp_password }}"
         - name: gitlab.ssh.host
           value: "{{ ocp4_workload_platform_engineering_workshop_gitlab_config_ssh_host }}"
-        - name: gitlab.ssh.port
-          value: "{{ ocp4_workload_platform_engineering_workshop_gitlab_config_ssh_port }}"
         - name: gitlab.rootPassword
           value: "{{ ocp4_workload_platform_engineering_workshop_gitlab_config_root_password }}"
         - name: gitlab.host
           value: {{ ocp4_workload_platform_engineering_workshop_gitlab_config_host }}
-        - name: gitlab.https
-          value: "{{ ocp4_workload_platform_engineering_workshop_gitlab_config_https }}"
-        - name: gitlab.rootEmail
-          value: "{{ ocp4_workload_platform_engineering_workshop_gitlab_config_root_email }}"
-        - name: gitlab.keyBase.db
-          value: "{{ ocp4_workload_platform_engineering_workshop_gitlab_config_keybase_db }}"
-        - name: gitlab.keyBase.otp
-          value: "{{ ocp4_workload_platform_engineering_workshop_gitlab_config_keybase_otp }}"
-        - name: gitlab.keyBase.secret
-          value: "{{ ocp4_workload_platform_engineering_workshop_gitlab_config_keybase_secret }}"
-        - name: gitlab.postgresql.dbUser
-          value: {{ ocp4_workload_platform_engineering_workshop_gitlab_db_user_name }}
-        - name: gitlab.postgresql.dbPassword
-          value: {{ ocp4_workload_platform_engineering_workshop_gitlab_db_password }}
-        - name: gitlab.postgresql.dbName
-          value: {{ ocp4_workload_platform_engineering_workshop_gitlab_db_name }}
-        - name: gitlab.destinationgroup
-          value: {{ ocp4_workload_platform_engineering_workshop_gitlab_destination_group }}
         - name: cluster.subdomain
           value: {{ r_openshift_subdomain }}
         - name: gitops.namespace
           value: {{ ocp4_workload_platform_engineering_workshop_rhdh_gitops_namespace }}
-        - name: gitops.project
-          value: default
         - name: quay.host
           value: {{ ocp4_workload_platform_engineering_workshop_quay_registry_host }}
         - name: vault.name
           value: {{ ocp4_workload_platform_engineering_workshop_vault_name }}
         - name: vault.namespace
           value: {{ ocp4_workload_platform_engineering_workshop_vault_namespace }}
-{% for user in ocp4_workload_platform_engineering_workshop_gitlab_users -%}
-{% set userloop = loop %}
-        - name: gitlab.users[{{ userloop.index - 1 }}].id
-          value: {{ user.id }}
-        - name: gitlab.users[{{ userloop.index - 1 }}].password
-          value: {{ common_password }}
-{% endfor %}
-{% for group in ocp4_workload_platform_engineering_workshop_gitlab_groups -%}
-          {% set grouploop = loop %}
-        - name: gitlab.groups[{{ grouploop.index - 1 }}].name
-          value: {{ group.name }}
-{% for repo in group.repo %}
-        - name: gitlab.groups[{{ grouploop.index - 1 }}].repo[{{ loop.index - 1 }}].name
-          value: {{ repo.name }}
-        - name: gitlab.groups[{{ grouploop.index - 1 }}].repo[{{ loop.index - 1 }}].url
-          value: {{ repo.url }}
-{% endfor %}
-{% for user in group.users %}
-        - name: gitlab.groups[{{ grouploop.index - 1 }}].user[{{ loop.index - 1 }}].id
-          value: {{ user.id }}
-{% endfor %}
-{% endfor %}
-{% for template in ocp4_workload_platform_engineering_workshop_gitlab_templates -%}
-{% set templateloop = loop %}
-        - name: gitlab.templates[{{ templateloop.index - 1 }}].group
-          value: {{ template.group }}
-        - name: gitlab.templates[{{ templateloop.index - 1 }}].project
-          value: {{ template.project }}
-        - name: gitlab.templates[{{ templateloop.index - 1 }}].branch
-          value: {{ template.branch }}
-{% for templatefile in template.templates %}
-        - name: gitlab.templates[{{ templateloop.index - 1 }}].templates[{{ loop.index - 1 }}]
-          value: {{ templatefile }}        
-{% endfor %}
-{% endfor %}
     path: {{ ocp4_workload_platform_engineering_workshop_gitlab_gitops_repo_path }}
     repoURL: {{ ocp4_workload_platform_engineering_workshop_gitlab_gitops_repo }}
     targetRevision: {{ ocp4_workload_platform_engineering_workshop_gitlab_gitops_repo_tag }}

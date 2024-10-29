@@ -202,81 +202,15 @@ ocp4_workload_platform_engineering_workshop_gitlab_gitops_repo_tag: cicd
 ocp4_workload_platform_engineering_workshop_gitlab_gitops_name: gitlab
 ocp4_workload_platform_engineering_workshop_gitlab_gitops_namespace: openshift-gitops
 
-ocp4_workload_platform_engineering_workshop_gitlab_config_email_address: "gitlab@example.com"
-ocp4_workload_platform_engineering_workshop_gitlab_config_email_display_name: "GitLab Admin"
-ocp4_workload_platform_engineering_workshop_gitlab_config_email_reply_to: "noreply@example.com"
-ocp4_workload_platform_engineering_workshop_gitlab_config_smtp_enabled: "false"
-ocp4_workload_platform_engineering_workshop_gitlab_config_smtp_domain: "example.com"
 ocp4_workload_platform_engineering_workshop_gitlab_config_smtp_host:
   smtp.gitlab-{{ ocp4_workload_platform_engineering_workshop_gitlab_namespace }}.{{ r_openshift_subdomain }}
-ocp4_workload_platform_engineering_workshop_gitlab_config_smtp_port: "587"
-ocp4_workload_platform_engineering_workshop_gitlab_config_smtp_user: "gitlab"
-ocp4_workload_platform_engineering_workshop_gitlab_config_smtp_password: "gitlab"
 ocp4_workload_platform_engineering_workshop_gitlab_config_ssh_host:
   ssh.gitlab-{{ ocp4_workload_platform_engineering_workshop_gitlab_namespace }}.{{ r_openshift_subdomain }}
-ocp4_workload_platform_engineering_workshop_gitlab_config_ssh_port: "22"
 ocp4_workload_platform_engineering_workshop_gitlab_config_root_password: "{{ common_password }}"
 ocp4_workload_platform_engineering_workshop_gitlab_config_host:
   "gitlab-{{ ocp4_workload_platform_engineering_workshop_gitlab_namespace }}.{{ r_openshift_subdomain }}"
-ocp4_workload_platform_engineering_workshop_gitlab_config_https: "true"
-ocp4_workload_platform_engineering_workshop_gitlab_config_root_email: "root@example.com"
-ocp4_workload_platform_engineering_workshop_gitlab_config_keybase_db: "0123456789"
-ocp4_workload_platform_engineering_workshop_gitlab_config_keybase_otp: "0123456789"
-ocp4_workload_platform_engineering_workshop_gitlab_config_keybase_secret: "0123456789"
 
-ocp4_workload_platform_engineering_workshop_gitlab_db_user_name: gitlab
-ocp4_workload_platform_engineering_workshop_gitlab_db_password: passw0rd
-ocp4_workload_platform_engineering_workshop_gitlab_db_name: gitlab_production
-
-ocp4_workload_platform_engineering_workshop_gitlab_users:
-  - id: dev1
-    password: "{{ common_password }}"
-  - id: dev2
-    password: "{{ common_password }}"
-  - id: pe1
-    password: "{{ common_password }}"
-  - id: pe2
-    password: "{{ common_password }}"
-
-ocp4_workload_platform_engineering_workshop_gitlab_groups:
-  - name: rhdh
-    repo:
-      - name: template-quarkus-simple
-        url: https://github.com/btison/rhdh-template-quarkus-simple.git
-    users:
-      - id: pe1
-      - id: pe2
-  - name: devteam1
-    repo: []
-    users:
-      - id: dev1
-      - id: dev2
-  - name: parasol
-    repo:
-      - name: parasol-store
-        url: https://github.com/btison/pew-parasol-store.git
-      - name: parasol-web
-        url: https://github.com/btison/pew-parasol-web.git
-      - name: parasol-db-manifests
-        url: https://github.com/btison/pew-parasol-db-manifests.git
-      - name: parasol-store-manifests
-        url: https://github.com/btison/pew-parasol-store-manifests.git
-      - name: parasol-web-manifests
-        url: https://github.com/btison/pew-parasol-web-manifests.git
-      - name: parasol-store-build-manifests
-        url: https://github.com/btison/pew-parasol-store-build-manifests.git
-    users:
-      - id: dev1
-      - id: dev2
-
-ocp4_workload_platform_engineering_workshop_gitlab_templates:
-  - group: rhdh
-    project: template-quarkus-simple
-    branch: main
-    templates:
-      - template.yaml
-
-ocp4_workload_platform_engineering_workshop_gitlab_destination_group: devteam1
+ocp4_workload_platform_engineering_workshop_gitlab_users_password: "{{ common_password }}"
 
 # ------------------------------------------------
 # Red Hat Build Of Keycloak
