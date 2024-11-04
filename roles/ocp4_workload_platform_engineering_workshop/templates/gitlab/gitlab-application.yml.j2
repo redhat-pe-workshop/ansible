@@ -19,6 +19,8 @@ spec:
           value: "{{ ocp4_workload_platform_engineering_workshop_gitlab_config_ssh_host }}"
         - name: gitlab.rootPassword
           value: "{{ ocp4_workload_platform_engineering_workshop_gitlab_config_root_password }}"
+        - name: gitlab.users.password
+          value: "{{ ocp4_workload_platform_engineering_workshop_gitlab_users_password }}"
         - name: gitlab.host
           value: {{ ocp4_workload_platform_engineering_workshop_gitlab_config_host }}
         - name: cluster.subdomain
