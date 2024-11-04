@@ -54,5 +54,6 @@ spec:
             backstagePlugin:
               name: {{ ocp4_workload_platform_engineering_workshop_rhbk_client_backstage_plugin_name }}
               secret: {{ ocp4_workload_platform_engineering_workshop_rhbk_client_backstage_plugin_secret }}
-          users: {{ ocp4_workload_platform_engineering_workshop_rhbk_users }}
-          groups: {{ ocp4_workload_platform_engineering_workshop_rhbk_groups }}
+          users:
+            password: {{ ocp4_workload_platform_engineering_workshop_rhbk_user_password }}
+
