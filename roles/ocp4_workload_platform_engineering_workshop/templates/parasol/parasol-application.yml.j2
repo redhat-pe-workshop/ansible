@@ -59,7 +59,14 @@ spec:
             password: {{ ocp4_workload_platform_engineering_workshop_quay_admin_user_password }}
           cluster:
             subdomain: {{ r_openshift_subdomain }}
-        
+        parasol-templates:        
+          gitlab:
+            rootPassword: {{ ocp4_workload_platform_engineering_workshop_gitlab_config_root_password }}
+            host: {{ ocp4_workload_platform_engineering_workshop_gitlab_config_host }}
+          gitops:
+            namespace: {{ ocp4_workload_platform_engineering_workshop_rhdh_gitops_namespace }}
+          cluster:
+            subdomain: {{ r_openshift_subdomain }}
         keycloak-realm-import:
           keycloak:
             namespace: {{ ocp4_workload_platform_engineering_workshop_rhbk_namespace }}
