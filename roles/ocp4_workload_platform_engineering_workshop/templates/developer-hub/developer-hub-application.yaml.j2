@@ -31,7 +31,7 @@ spec:
     path: {{ ocp4_workload_platform_engineering_workshop_rhdh_helm_repo_path }}
     targetRevision: {{ ocp4_workload_platform_engineering_workshop_rhdh_helm_repo_tag }}
     helm:
-      values: |
+      valuesObject:
         redhat-developer-hub-prereqs:
           nameOverride: backstage
           backstage:
@@ -50,34 +50,6 @@ spec:
           global:
             clusterRouterBase: {{ r_openshift_subdomain }}
             host: backstage-{{ ocp4_workload_platform_engineering_workshop_rhdh_namespace }}.{{ r_openshift_subdomain }}
-
-            dynamic:
-              includes:
-                - dynamic-plugins.default.yaml
-              plugins:
-                - package: ./dynamic-plugins/dist/backstage-plugin-scaffolder-backend-module-gitlab-dynamic
-                  disabled: false
-                - package: ./dynamic-plugins/dist/roadiehq-scaffolder-backend-argocd-dynamic
-                  disabled: false
-                - package: ./dynamic-plugins/dist/backstage-plugin-kubernetes-backend-dynamic
-                  disabled: false
-                - package: ./dynamic-plugins/dist/backstage-plugin-kubernetes
-                  disabled: false
-                - package: ./dynamic-plugins/dist/janus-idp-backstage-plugin-topology
-                  disabled: false
-                - package: ./dynamic-plugins/dist/janus-idp-backstage-plugin-tekton
-                  disabled: false
-                - package: ./dynamic-plugins/dist/roadiehq-backstage-plugin-argo-cd-backend-dynamic
-                  disabled: false
-                - package: ./dynamic-plugins/dist/backstage-community-plugin-redhat-argocd
-                  disabled: false
-                - package: ./dynamic-plugins/dist/janus-idp-backstage-plugin-keycloak-backend-dynamic
-                  disabled: false
-                - package: ./dynamic-plugins/dist/backstage-plugin-techdocs-backend-dynamic
-                  disabled: false
-                - package: ./dynamic-plugins/dist/backstage-plugin-techdocs
-                  disabled: false
-
           upstream:
             postgresql:
               auth:
@@ -86,20 +58,13 @@ spec:
                 existingSecret: backstage-postgresql
                 secretKeys:
                   userPasswordKey: postgres-password
-
             backstage:
               extraEnvVarsSecrets:
                 - gitlab-token
                 - argocd-password
                 - kubernetes-sa-token
                 - oauth-client
-
               appConfig:
-                auth:
-                  environment: production
-                  providers:
-                    oauth2Proxy: {}
-                signInPage: oauth2Proxy
                 integrations:
                   gitlab:
                     - apiBaseUrl: https://{{ ocp4_workload_platform_engineering_workshop_gitlab_config_host }}/api/v4
@@ -107,8 +72,6 @@ spec:
                       host: {{ ocp4_workload_platform_engineering_workshop_gitlab_config_host }}
                       token: ${GITLAB_TOKEN}
                 catalog:
-                  rules:
-                    - allow: [Component, System, API, Resource, Location, Template]
                   locations:
 {% for location in ocp4_workload_platform_engineering_workshop_rhdh_locations %}
                     - target: https://{{ ocp4_workload_platform_engineering_workshop_gitlab_config_host }}/{{ location.group }}/{{ location.project }}/blob/{{ location.branch }}/{{ location.file }}
@@ -124,22 +87,14 @@ spec:
                         loginRealm: {{ ocp4_workload_platform_engineering_workshop_rhbk_realm_backstage_name }}
                         clientId: {{ ocp4_workload_platform_engineering_workshop_rhbk_client_backstage_plugin_name }}
                         clientSecret: {{ ocp4_workload_platform_engineering_workshop_rhbk_client_backstage_plugin_secret }}
-
-                techdocs:
-                  builder: 'local'
-                  publisher:
-                    type: 'local'
-                  generator:
-                    runIn: local
                 argocd:
                   appLocatorMethods:
                     - type: 'config'
                       instances:
                         - name: main
-                          url: 	https://{{ ocp4_workload_platform_engineering_workshop_rhdh_gitops_name }}-server-{{ ocp4_workload_platform_engineering_workshop_rhdh_gitops_namespace }}.{{ r_openshift_subdomain }}
+                          url: https://{{ ocp4_workload_platform_engineering_workshop_rhdh_gitops_name }}-server-{{ ocp4_workload_platform_engineering_workshop_rhdh_gitops_namespace }}.{{ r_openshift_subdomain }}
                           username: admin
                           password: ${ARGOCD_PASSWORD}
-
                 kubernetes:
                   serviceLocatorMethod:
                     type: multiTenant
@@ -151,14 +106,6 @@ spec:
                           skipTLSVerify: true
                           serviceAccountToken: ${KUBERNETES_SA_TOKEN}
                       type: config
-                  customResources:
-                    - group: 'tekton.dev'
-                      apiVersion: 'v1beta1'
-                      plural: 'pipelineruns'
-                    - group: 'tekton.dev'
-                      apiVersion: 'v1beta1'
-                      plural: 'taskruns'
-
               extraEnvVars:
                 - name: NODE_OPTIONS
                   value: --no-node-snapshot
@@ -166,7 +113,6 @@ spec:
                   value: "{{ '{{ randAlphaNum 24 | b64enc }}' }}"
                 - name: NODE_TLS_REJECT_UNAUTHORIZED
                   value: "0"
-
               extraContainers:
                 - name: oauth2-proxy
                   env:
@@ -201,7 +147,6 @@ spec:
                     - '--insecure-oidc-allow-unverified-email=true'
             service:
               ports:
-                backend: 4180
                 targetPort: oauth2-proxy
           route:
             host: backstage-{{ ocp4_workload_platform_engineering_workshop_rhdh_namespace }}.{{ r_openshift_subdomain }}
