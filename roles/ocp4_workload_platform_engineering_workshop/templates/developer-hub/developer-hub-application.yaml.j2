@@ -33,7 +33,6 @@ spec:
     helm:
       valuesObject:
         redhat-developer-hub-prereqs:
-          nameOverride: backstage
           backstage:
             oauth:
               clientId: {{ ocp4_workload_platform_engineering_workshop_rhbk_client_backstage_name }}
@@ -46,107 +45,30 @@ spec:
               password: {{ ocp4_workload_platform_engineering_workshop_rhdh_gitops_password }}
             postgresql:
               password: {{ ocp4_workload_platform_engineering_workshop_rhdh_psql_password }}
-        redhat-developer-hub:
-          global:
-            clusterRouterBase: {{ r_openshift_subdomain }}
+        redhat-developer-hub-config-template:
+          gitlab:
+            rootPassword: {{ ocp4_workload_platform_engineering_workshop_gitlab_config_root_password }}
+            host: {{ ocp4_workload_platform_engineering_workshop_gitlab_config_host }}
+          backstage:
             host: backstage-{{ ocp4_workload_platform_engineering_workshop_rhdh_namespace }}.{{ r_openshift_subdomain }}
-          upstream:
-            postgresql:
-              auth:
-                username: postgres
-                database: backstage
-                existingSecret: backstage-postgresql
-                secretKeys:
-                  userPasswordKey: postgres-password
-            backstage:
-              extraEnvVarsSecrets:
-                - gitlab-token
-                - argocd-password
-                - kubernetes-sa-token
-                - oauth-client
-              appConfig:
-                integrations:
-                  gitlab:
-                    - apiBaseUrl: https://{{ ocp4_workload_platform_engineering_workshop_gitlab_config_host }}/api/v4
-                      baseUrl: https://{{ ocp4_workload_platform_engineering_workshop_gitlab_config_host }}
-                      host: {{ ocp4_workload_platform_engineering_workshop_gitlab_config_host }}
-                      token: ${GITLAB_TOKEN}
-                catalog:
-                  locations:
-{% for location in ocp4_workload_platform_engineering_workshop_rhdh_locations %}
-                    - target: https://{{ ocp4_workload_platform_engineering_workshop_gitlab_config_host }}/{{ location.group }}/{{ location.project }}/blob/{{ location.branch }}/{{ location.file }}
-                      type: url
-                      rules:
-                        - allow: [{{ location.rules.allow }}]
-{% endfor %}
-                  providers:
-                    keycloakOrg:
-                      default:
-                        baseUrl: https://{{ ocp4_workload_platform_engineering_workshop_rhbk_host }}.{{ r_openshift_subdomain }}
-                        realm: {{ ocp4_workload_platform_engineering_workshop_rhbk_realm_backstage_name }}
-                        loginRealm: {{ ocp4_workload_platform_engineering_workshop_rhbk_realm_backstage_name }}
-                        clientId: {{ ocp4_workload_platform_engineering_workshop_rhbk_client_backstage_plugin_name }}
-                        clientSecret: {{ ocp4_workload_platform_engineering_workshop_rhbk_client_backstage_plugin_secret }}
-                argocd:
-                  appLocatorMethods:
-                    - type: 'config'
-                      instances:
-                        - name: main
-                          url: https://{{ ocp4_workload_platform_engineering_workshop_rhdh_gitops_name }}-server-{{ ocp4_workload_platform_engineering_workshop_rhdh_gitops_namespace }}.{{ r_openshift_subdomain }}
-                          username: admin
-                          password: ${ARGOCD_PASSWORD}
-                kubernetes:
-                  serviceLocatorMethod:
-                    type: multiTenant
-                  clusterLocatorMethods:
-                    - clusters:
-                        - name: dev-cluster
-                          url: {{ r_openshift_api_server }}
-                          authProvider: serviceAccount
-                          skipTLSVerify: true
-                          serviceAccountToken: ${KUBERNETES_SA_TOKEN}
-                      type: config
-              extraEnvVars:
-                - name: NODE_OPTIONS
-                  value: --no-node-snapshot
-                - name: BACKEND_SECRET
-                  value: "{{ '{{ randAlphaNum 24 | b64enc }}' }}"
-                - name: NODE_TLS_REJECT_UNAUTHORIZED
-                  value: "0"
-              extraContainers:
-                - name: oauth2-proxy
-                  env:
-                    - name: OAUTH2_PROXY_CLIENT_ID
-                      valueFrom:
-                        secretKeyRef:
-                          name: oauth-client
-                          key: OAUTH_CLIENT_ID
-                    - name: OAUTH2_PROXY_CLIENT_SECRET
-                      valueFrom:
-                        secretKeyRef:
-                          name: oauth-client
-                          key: OAUTH_CLIENT_SECRET
-                    - name: OAUTH2_PROXY_COOKIE_SECRET
-                      value: "{{ '{{ randAlpha 32 | lower | b64enc }}' }}"
-                    - name: OAUTH2_PROXY_OIDC_ISSUER_URL
-                      value: https://{{ ocp4_workload_platform_engineering_workshop_rhbk_host }}.{{ r_openshift_subdomain }}/realms/{{ ocp4_workload_platform_engineering_workshop_rhbk_realm_backstage_name }}
-                    - name: OAUTH2_PROXY_SSL_INSECURE_SKIP_VERIFY
-                      value: 'true'
-                  ports:
-                    - name: oauth2-proxy
-                      containerPort: 4180
-                      protocol: TCP
-                  imagePullPolicy: IfNotPresent
-                  image: 'quay.io/oauth2-proxy/oauth2-proxy:latest'
-                  args:
-                    - '--provider=oidc'
-                    - '--email-domain=*'
-                    - '--upstream=http://localhost:7007'
-                    - '--http-address=0.0.0.0:4180'
-                    - '--skip-provider-button'
-                    - '--insecure-oidc-allow-unverified-email=true'
-            service:
-              ports:
-                targetPort: oauth2-proxy
-          route:
-            host: backstage-{{ ocp4_workload_platform_engineering_workshop_rhdh_namespace }}.{{ r_openshift_subdomain }}
+          keycloak:
+            host: {{ ocp4_workload_platform_engineering_workshop_rhbk_host }}.{{ r_openshift_subdomain }}
+            realm: {{ ocp4_workload_platform_engineering_workshop_rhbk_realm_backstage_name }}
+            loginRealm: {{ ocp4_workload_platform_engineering_workshop_rhbk_realm_backstage_name }}
+            clientId: {{ ocp4_workload_platform_engineering_workshop_rhbk_client_backstage_plugin_name }}
+            clientSecret: {{ ocp4_workload_platform_engineering_workshop_rhbk_client_backstage_plugin_secret }}
+          gitops:
+            host: {{ ocp4_workload_platform_engineering_workshop_rhdh_gitops_name }}-server-{{ ocp4_workload_platform_engineering_workshop_rhdh_gitops_namespace }}.{{ r_openshift_subdomain }}
+          kubernetes:
+            api: {{ r_openshift_api_server }}
+          oauth2:
+            issuer:  https://{{ ocp4_workload_platform_engineering_workshop_rhbk_host }}.{{ r_openshift_subdomain }}/realms/{{ ocp4_workload_platform_engineering_workshop_rhbk_realm_backstage_name }}
+          cluster:
+            subdomain: {{ r_openshift_subdomain }}
+        redhat-developer-hub-application:
+          gitops:
+            namespace: {{ ocp4_workload_platform_engineering_workshop_rhdh_argo_application_namespace }}
+          helm:
+            values:
+              git:
+                host: {{ ocp4_workload_platform_engineering_workshop_gitlab_config_host }}

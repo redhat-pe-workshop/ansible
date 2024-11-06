@@ -303,17 +303,17 @@ ocp4_workload_platform_engineering_workshop_rhdh_gitops_password: "{{ common_pas
 # Red Hat Developer Hub
 # ------------------------------------------------
 
-ocp4_workload_platform_engineering_workshop_rhdh_argo_application_name: backstage
+ocp4_workload_platform_engineering_workshop_rhdh_argo_application_name: backstage-bootstrap
 ocp4_workload_platform_engineering_workshop_rhdh_argo_application_namespace: openshift-gitops
 ocp4_workload_platform_engineering_workshop_rhdh_namespace: backstage
 
 ocp4_workload_platform_engineering_workshop_rhdh_helm_repo: https://github.com/btison/pe-workshop-helm.git
 ocp4_workload_platform_engineering_workshop_rhdh_helm_repo_path: redhat-developer-hub
-ocp4_workload_platform_engineering_workshop_rhdh_helm_repo_tag: main
+ocp4_workload_platform_engineering_workshop_rhdh_helm_repo_tag: bootstrap
 
 ocp4_workload_platform_engineering_workshop_rhdh_psql_password: password
 
-ocp4_workload_platform_engineering_workshop_rhdh_locations: []
+ocp4_workload_platform_engineering_workshop_rhdh_namespace_sa_token: default
 
 # ------------------------------------------------
 # Parasol
