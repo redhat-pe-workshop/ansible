@@ -181,6 +181,8 @@ ocp4_workload_platform_engineering_workshop_openshift_pipelines_gitops_repo_path
 # NooBaa
 # ------------------------------------------------
 
+# set to false when deploying on a cluster withODF installed
+ocp4_workload_platform_engineering_workshop_noobaa_install: true
 ocp4_workload_platform_engineering_workshop_noobaa_application_namespace: openshift-gitops
 ocp4_workload_platform_engineering_workshop_noobaa_application_name: noobaa
 ocp4_workload_platform_engineering_workshop_noobaa_namespace: openshift-storage
