@@ -1,0 +1,11 @@
+---
+lab_ui_url: https://showroom-showroom.apps.sno.sandbox1537.opentlc.com/
+showroom_primary_view_url: https://showroom-showroom.apps.sno.sandbox1537.opentlc.com/
+users:
+  user:
+    common_password: aAdYxchg
+    openshift_cluster_console: https://console-openshift-console.apps.sno.sandbox1537.opentlc.com
+    openshift_cluster_console_url: https://console-openshift-console.apps.sno.sandbox1537.opentlc.com
+    openshift_cluster_ingress_domain: apps.sno.sandbox1537.opentlc.com
+    user_name: user
+    user_password: aAdYxchg
