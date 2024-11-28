@@ -318,6 +318,22 @@ ocp4_workload_platform_engineering_workshop_rhdh_psql_password: password
 ocp4_workload_platform_engineering_workshop_rhdh_namespace_sa_token: default
 
 # ------------------------------------------------
+# Red Hat Trusted Artifact Signer
+# ------------------------------------------------
+
+ocp4_workload_platform_engineering_workshop_rhtas_client_name: backstage
+ocp4_workload_platform_engineering_workshop_rhtas_application_namespace: openshift-gitops
+ocp4_workload_platform_engineering_workshop_rhtas_application_name: trusted-artifact-signer
+ocp4_workload_platform_engineering_workshop_rhtas_namespace: trusted-artifact-signer
+ocp4_workload_platform_engineering_workshop_rhtas_gitops_repo: https://github.com/redhat-pe-workshop/helm.git
+ocp4_workload_platform_engineering_workshop_rhtas_gitops_repo_tag: trusted-artifact-signer
+ocp4_workload_platform_engineering_workshop_rhtas_gitops_repo_path: rhtas
+
+ocp4_workload_platform_engineering_workshop_rhtas_cr_name: securesign
+
+
+
+# ------------------------------------------------
 # Parasol
 # ------------------------------------------------
 
