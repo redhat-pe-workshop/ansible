@@ -69,6 +69,10 @@
     name: openshift-gitops-cluster
     namespace: openshift-gitops
   register: r_secret
+  until:
+    - r_secret is defined
+    - r_openshift_gitops.resources is defined
+    - r_openshift_gitops.resources | length == 1
 
 - name: Get openshift_gitops_admin_password
   ansible.builtin.set_fact:
