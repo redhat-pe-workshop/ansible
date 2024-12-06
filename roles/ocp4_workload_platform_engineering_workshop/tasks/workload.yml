@@ -62,6 +62,9 @@
   ansible.builtin.pause:
     minutes: 3
 
+- name: Install Trusted Artifact Signer
+  ansible.builtin.include_tasks: trusted_artifact_signer.yml
+
 - name: Install Parasol
   ansible.builtin.include_tasks: parasol.yml
 
