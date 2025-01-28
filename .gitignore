@@ -5,3 +5,8 @@
 .vscode
 
 .ansible-lint
+
+playbooks/user-data.yaml
+playbooks/user-info.yaml
+
+**/__pycache__
