@@ -309,13 +309,16 @@ ocp4_workload_platform_engineering_workshop_rhdh_argo_application_name: backstag
 ocp4_workload_platform_engineering_workshop_rhdh_argo_application_namespace: openshift-gitops
 ocp4_workload_platform_engineering_workshop_rhdh_namespace: backstage
 
-ocp4_workload_platform_engineering_workshop_rhdh_helm_repo: https://github.com/redhat-pe-workshop/helm.git
+ocp4_workload_platform_engineering_workshop_rhdh_helm_repo: https://github.com/btison/pe-workshop-helm.git
 ocp4_workload_platform_engineering_workshop_rhdh_helm_repo_tag: bootstrap
 ocp4_workload_platform_engineering_workshop_rhdh_helm_repo_path: redhat-developer-hub
 
 ocp4_workload_platform_engineering_workshop_rhdh_psql_password: password
 
 ocp4_workload_platform_engineering_workshop_rhdh_namespace_sa_token: default
+
+ocp4_workload_platform_engineering_workshop_rhdh_orchestrator_token:
+  "{{ lookup('ansible.builtin.password', '/dev/null', chars=['ascii_letters'], length=24) }}"
 
 # ------------------------------------------------
 # Red Hat Trusted Artifact Signer
@@ -344,3 +347,14 @@ ocp4_workload_platform_engineering_workshop_parasol_application_repo_path: paras
 ocp4_workload_platform_engineering_workshop_parasol_application_name: parasol
 ocp4_workload_platform_engineering_workshop_parasol_application_namespace: openshift-gitops
 ocp4_workload_platform_engineering_workshop_parasol_namespace: default
+
+# ------------------------------------------------
+# Orchestrator
+# ------------------------------------------------
+
+ocp4_workload_platform_engineering_workshop_orchestrator_application_namespace: openshift-gitops
+ocp4_workload_platform_engineering_workshop_orchestrator_application_name: orchestrator
+ocp4_workload_platform_engineering_workshop_orchestrator_namespace: orchestrator
+ocp4_workload_platform_engineering_workshop_orchestrator_gitops_repo: https://github.com/btison/pe-workshop-helm.git
+ocp4_workload_platform_engineering_workshop_orchestrator_gitops_repo_tag: orchestrator
+ocp4_workload_platform_engineering_workshop_orchestrator_gitops_repo_path: orchestrator

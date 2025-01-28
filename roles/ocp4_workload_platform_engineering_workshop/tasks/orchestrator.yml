@@ -1,0 +1,6 @@
+---
+
+- name: Create Orchestrator application
+  kubernetes.core.k8s:
+    state: present
+    definition: "{{ lookup('template', 'orchestrator/orchestrator-application.yaml.j2') | from_yaml }}"

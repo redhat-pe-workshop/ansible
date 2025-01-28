@@ -36,6 +36,9 @@
 - name: Install Parasol
   ansible.builtin.include_tasks: parasol.yml
 
+- name: Install Orchestrator
+  ansible.builtin.include_tasks: orchestrator.yml  
+
 - name: Print Common Password
   agnosticd_user_info:
     msg: "{{ item }}"
