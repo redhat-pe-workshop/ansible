@@ -27,7 +27,7 @@ spec:
     targetRevision: {{ ocp4_workload_platform_engineering_workshop_orchestrator_gitops_repo_tag }}
     path: {{ ocp4_workload_platform_engineering_workshop_orchestrator_gitops_repo_path }}
     helm:
-      values: |
+      valuesObject:
         orchestrator:
           openshift:
             token: {{ ocp4_workload_platform_engineering_workshop_rhdh_ocp_default_sa_token }}
