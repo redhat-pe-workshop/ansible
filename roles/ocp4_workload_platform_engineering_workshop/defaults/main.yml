@@ -329,8 +329,8 @@ ocp4_workload_platform_engineering_workshop_rhtas_gitops_repo_tag: trusted-artif
 ocp4_workload_platform_engineering_workshop_rhtas_gitops_repo_path: rhtas
 
 ocp4_workload_platform_engineering_workshop_rhtas_instance_name: securesign
-ocp4_workload_platform_engineering_workshop_rhtas_oidc_issuer: 
-  "{{ ocp4_workload_platform_engineering_workshop_rhbk_host }}.{{ r_openshift_subdomain }}/realms/{{ ocp4_workload_platform_engineering_workshop_rhbk_realm_backstage_name }}"
+ocp4_workload_platform_engineering_workshop_rhtas_oidc_issuer:
+  "{{ ocp4_workload_platform_engineering_workshop_rhbk_host }}.{{ r_openshift_subdomain }}/realms/{{ ocp4_workload_platform_engineering_workshop_rhbk_realm_backstage_name }}" # yamllint disable-line rule:line-length
 ocp4_workload_platform_engineering_workshop_rhtas_root_cert_email: admin@rhdemo.com
 ocp4_workload_platform_engineering_workshop_rhtas_root_cert_org: Parasol
 
